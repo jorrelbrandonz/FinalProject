@@ -1,0 +1,56 @@
+.NavbarItems {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3em 50px;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,.25);
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    background-color: black;
+    z-index: 9999;
+    /*
+    border-radius: 20px;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);*/
+  
+}
+
+.navbar-logo {
+    color: ORANGE;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.nav-menu {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-gap: 10px;
+    list-style: none;
+    align-items: center;
+    color: orange;
+}
+
+.nav-links {
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.7rem 1rem;
+    white-space: nowrap;
+    color: orange;
+}
+
+.navbarimg {
+    width: 20%;
+    height: 20%;
+    object-fit: none;
+    
+}
+
+.nav-links:hover {
+    background-color: orange;
+    color: white;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+}
