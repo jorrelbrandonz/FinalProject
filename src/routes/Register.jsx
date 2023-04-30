@@ -4,28 +4,34 @@ import { FaLock } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
 import { FaCalendar } from "react-icons/fa";
 import { FaOdnoklassniki } from "react-icons/fa";
+import axios from "axios";
 
-export const Register = (props) => {
+
+export const Register = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
 
-    const user = [
-        {
-            userName: {name},
-            userPass: {pass},
-            userEmail: {email},
-            userAge: {age},
-            userGender: {gender}
-        }
-    ];
+    /*var userAcc = {"name":{name}, "pass":{pass}, "email": email, "age":{age}};
+    var json = JSON.stringify(userAcc);*/
+    let fData = new FormData(); 
+    fData.append('name', name);
+    fData.append('pass', pass);
+    fData.append('email', email);
+    fData.append('age', age);
 
-   const handleSubmit = (e) => {
+
+   const handleSubmit =(e)=>{
         e.preventDefault();
-        console.log(user);
+        console.log(fData);
+        axios.post('http://localhost/FinalProjectBackEnd/Registration.php', fData)
+        .then(response=>alert(response.data))
+        .catch(error=>alert(error));
+
     }
+
+    
     return(
     <div className='auth-form container'>
     <form className="register-form" onSubmit={handleSubmit}>
@@ -42,15 +48,8 @@ export const Register = (props) => {
         <label htmlFor="age"><FaCalendar/>   Age</label>
         <input value={age} onChange={(e) => setAge(e.target.value)} type='number' id="age" name="age" required/>
 
-        <label htmlFor="age"><FaOdnoklassniki/>   Gender</label>
-        <fieldset className='signup'>
-            <label><input id="male" type="radio" name="male-female-other" value={gender} onChange={(e) => setGender(e.target.value)} class='radioinp' checked required/> Male</label>
-            <label><input id="female" type="radio" name="male-female-other" value={gender} onChange={(e) => setGender(e.target.value)} class='radioinp' checked required/> Female</label>
-            <label><input id="other" type="radio" name="male-female-other" value={gender} onChange={(e) => setGender(e.target.value)} class='radioinp' checked required/> Other</label>
-        </fieldset>
-
-        <button className='proc' type="submit">Sign-up</button>
-        <button className="link-btn" onClick={() => props.onFormSwitch('Login2')}>Already have an account? Log-in here.</button>
+        <button className="proc" type="submit">Sign-up</button>
+        <button className="link-btn" type="button" >Already have an account? Log-in here.</button>
     </form>
     </div>
     )
