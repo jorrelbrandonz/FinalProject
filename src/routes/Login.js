@@ -4,8 +4,11 @@ import {Register} from "./Register";
 import React, {useState} from 'react';
 import "./LoginStyles.css";
 import planebg from '../assets/planebg.jpg';
+import { Navigate } from "react-router-dom";
+
 
 function Login () {
+  
     const [currentForm, setCurrentForm] = useState('Login2');
     const toggleForm = (formName) => {
       setCurrentForm(formName);

@@ -2,15 +2,42 @@ import React, {useState} from "react";
 import { FaEnvelope } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaPlane } from "react-icons/fa";
+import axios from "axios";
+import {Route, Routes} from "react-router-dom";
+import { redirect } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
+
 
 export const Login2 = (props) => {
+    //const [myBoolean, setBoolean] = useState(false);
+   
+
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
+    let fData = new FormData();
+    fData.append('email', email);
+    fData.append('pass', pass);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
+        console.log(fData);
+        axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
+        .then((Response)=>{
+            if(Response){
+                navigate('/');
+            }
+            throw new Error('that aint it chief');
+        })
+        .catch(error=>alert(error.Response.data));
+       
+
     }
+  
+
     return(
         <div className='auth-form container'>
         <form className="login-form" onSubmit={handleSubmit}>

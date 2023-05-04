@@ -14,8 +14,6 @@ $email = $_POST['email'];
 $password = $_POST['pass'];
 $age = $_POST['age'];
 
-echo $name;
-echo $email;
 
 if($name && $email && $password && $age){
 $sql = "INSERT INTO users (name,email,password,age) VALUES ('$name','$email', '$password','$age')";
@@ -23,13 +21,13 @@ $sql = "INSERT INTO users (name,email,password,age) VALUES ('$name','$email', '$
 
 $result = mysqli_query($con,$sql);
 
-if ($result) {
-$response = array('status' => 'invalid');
-echo json_encode($response);
+if(!$result){
+$response = http_response_code(404);
+header($response);
 }
 else{
-    $response = array('status' => 'valid');
-    echo json_encode($response);
+$response = http_response_code(200);
+header($response);
 }
 
 $con->close();

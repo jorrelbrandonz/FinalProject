@@ -5,9 +5,13 @@ import { VscAccount } from "react-icons/vsc";
 import { FaCalendar } from "react-icons/fa";
 import { FaOdnoklassniki } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
 export const Register = () => {
+
+    
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');
@@ -26,7 +30,12 @@ export const Register = () => {
         e.preventDefault();
         console.log(fData);
         axios.post('http://localhost/FinalProjectBackEnd/Registration.php', fData)
-        .then(response=>alert(response.data))
+        .then((Response)=>{
+            if(Response){
+                console.log(Response);
+                navigate('/');
+            }
+        })
         .catch(error=>alert(error));
 
     }

@@ -4,6 +4,7 @@ import heroimghome from '../assets/hero2.jpg';
 import Destination from "../components/Destination";
 
 function Home () {
+
     return (
         <>
         <Navbar/>
