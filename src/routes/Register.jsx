@@ -34,7 +34,7 @@ export const Register = () => {
             if(Response){
                 console.log(Response);
                 navigate('/');
-                alert("Registration Successful!");z
+                alert("Registration Successful!");
             }
         })
         .catch(error=>alert(error));
