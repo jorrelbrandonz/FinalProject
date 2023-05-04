@@ -29,8 +29,11 @@ export const Login2 = (props) => {
         .then((Response)=>{
             if(Response){
                 navigate('/');
+                alert("Successful Login!");
             }
-            throw new Error('that aint it chief');
+            else{
+                alert("Incorrect Email or Password");
+            }
         })
         .catch(error=>alert(error.Response.data));
        
