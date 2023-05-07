@@ -14,7 +14,6 @@ export const Login2 = (props) => {
    
 
     const navigate = useNavigate();
-
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
