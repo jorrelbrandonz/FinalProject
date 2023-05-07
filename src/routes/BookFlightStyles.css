@@ -1,0 +1,235 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.table-container {
+    padding: 0 10%;
+    margin: 200px auto 50px;
+}
+
+.heading {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background-color: orange;
+}
+
+.table tr th {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.35px;
+    color: black;
+    opacity: 1;
+    padding: 12px;
+    vertical-align: top;
+    border: 1px solid white;
+}
+
+.table tr td {
+    font-size: 14px;
+    letter-spacing: 0.35px;
+    font-weight: normal;
+    color: black;
+    background-color: white;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid orange;
+}
+
+.btn {
+    width: 120px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    background-color: orange;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: 750;
+}
+
+.btn:hover {
+    background-color: darkorange;
+    color: white;
+    border-color: transparent;
+}
+
+.table-container#blur.active {
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.popupConfirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 24px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    display: none;
+}
+
+.popupConfirmation.open-popup {
+    display: block;
+}
+
+.popupConfirmation h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.popupConfirmation .flight-details {
+    margin-bottom: 16px;
+}
+
+.popupConfirmation .flight-details span {
+    font-weight: 600;
+}
+
+.popupConfirmation .buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popupConfirmation .buttons .proceedPaymentButton {
+    background-color: greenyellow;
+}
+
+.popupConfirmation .buttons button {
+    width: 120px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: 750;
+}
+
+.popupConfirmation .buttons button:hover {
+    opacity: 0.8;
+}
+
+.popupPaymentOption {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 24px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    display: none;
+}
+
+.popupPaymentOption.open-popup {
+    display: block;
+}
+
+.popupPaymentOption h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.popupPaymentOption .flight-details {
+    margin-bottom: 16px;
+}
+
+.popupPaymentOption .flight-details span {
+    font-weight: 600;
+}
+
+.popupPaymentOption .popupPaymentMethods{
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.popupPaymentOption .buttons .payButton {
+    background-color: greenyellow;
+}
+
+.popupPaymentOption .buttons button {
+    width: 120px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    padding: 18px 26px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: 750;
+}
+
+.popupPaymentOption .buttons .cancelButton {
+    margin-right: 50px;
+}
+
+.popupPaymentOption .buttons .payButton {
+    margin-left: 50px;
+}
+
+.popupPaymentOption .buttons button:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width:850px) {
+    .table thead {
+        display: none;
+    }
+
+    .table,
+    .table tbody,
+    .table tr,
+    .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 15px;
+    }
+
+    .table tbody tr td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .popupConfirmation {
+        max-width: 300px;
+        position: center;
+    }
+    .popupPaymentOption {
+        max-width: 300px;
+        position: center;
+    }
+}
