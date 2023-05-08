@@ -16,6 +16,9 @@ export const Register = (props) => {
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
+    const [inputCode, setInputCode] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+    const [accessCode, setAccessCode] = useState("123");
 
     /*var userAcc = {"name":{name}, "pass":{pass}, "email": email, "age":{age}};
     var json = JSON.stringify(userAcc);*/
@@ -25,9 +28,23 @@ export const Register = (props) => {
     fData.append('email', email);
     fData.append('age', age);
 
+    const handleVerify = (event) => {
+        event.preventDefault();
+        setShowPopup(true);
+      };
 
-   const handleSubmit =(e)=>{
-        e.preventDefault();
+      const handleAuthentication = (event) => {
+        event.preventDefault();
+        if (inputCode === accessCode){
+            handleSubmit(event);
+        }
+        else{
+            alert("Wrong code!");
+        }
+      };
+
+   function handleSubmit(event) {
+       event.preventDefault();
         console.log(fData);
         axios.post('http://localhost/FinalProjectBackEnd/Registration.php', fData)
         .then((Response)=>{
@@ -39,12 +56,13 @@ export const Register = (props) => {
         })
         .catch(error=>alert(error));
 
-    }
+    };
 
     
     return(
     <div className='auth-form container'>
-    <form className="register-form" onSubmit={handleSubmit}>
+    
+    <form className="register-form" onSubmit={handleVerify}>
     <h2>Sign-up</h2>
         <label htmlFor="name"><VscAccount/>   Full name</label>
         <input value={name} onChange={(e) => setName(e.target.value)} type="text" name='name' id='name' placeholder="Enter your fullname" required/>
@@ -61,6 +79,17 @@ export const Register = (props) => {
         <button className="proc" type="submit">Sign-up</button>
         <button className="link-btn" type = "button" onClick={() => props.onFormSwitch('Login2')}>Already have an account? Log-in here.</button>
     </form>
+    
+    {showPopup && (
+        <form className="popup">
+        <h2>We've sent a code to your email address.</h2>
+        <p>Please enter the code for verification</p>
+          <input value={inputCode} onChange={(e) => setInputCode(e.target.value)} type='number' id="inputCode" name="inputCode" required/>
+          <button onClick={handleAuthentication}>Enter</button>
+          <button onClick={() => setShowPopup(false)}>Close</button>
+        </form>
+      )}
     </div>
     )
+
 }
