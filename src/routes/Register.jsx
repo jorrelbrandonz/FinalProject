@@ -8,7 +8,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 
-export const Register = () => {
+export const Register = (props) => {
 
     
     const navigate = useNavigate();
@@ -59,7 +59,7 @@ export const Register = () => {
         <input value={age} onChange={(e) => setAge(e.target.value)} type='number' id="age" name="age" required/>
 
         <button className="proc" type="submit">Sign-up</button>
-        <button className="link-btn" type="button" >Already have an account? Log-in here.</button>
+        <button className="link-btn" type = "button" onClick={() => props.onFormSwitch('Login2')}>Already have an account? Log-in here.</button>
     </form>
     </div>
     )

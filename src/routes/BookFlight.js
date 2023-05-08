@@ -1,6 +1,8 @@
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import "./BookFlightStyles.css";
+import airport from '../assets/airport2.jpg';
+import Hero from "../components/Hero"
 
 function BookFlight() {
     const [selectedFlight, setSelectedFlight] = useState(null);
@@ -15,7 +17,7 @@ function BookFlight() {
     function closePopUp() {
         setSelectedFlight(null);
         setPaymentMethod(null)
-        setPaymentClicked(null);
+        setPaymentClicked(null); 
         const blur = document.getElementById("blur");
         blur.classList.remove("active");
     }
@@ -29,6 +31,8 @@ function BookFlight() {
     function handlePaymentClick() {
         setPaymentClicked(true); // set paymentClicked to true when payment button is clicked
     }
+    
+    
 
     useEffect(() => {
         let popupConfirmation = document.querySelector(".popupConfirmation")
@@ -101,7 +105,8 @@ function BookFlight() {
 
     return (
         <>
-            <nav className="navbar"><Navbar /></nav>
+        <img className="airbg" alt="img" src={airport} />
+        <div className="book2style">
             <div className="table-container" id="blur">
                 <h1 className="heading"> BOOK YOUR FLIGHT TODAY! </h1>
                 <table className="table">
@@ -137,6 +142,7 @@ function BookFlight() {
                         ))}
                     </tbody>
                 </table>
+            </div>
             </div>
             {selectedFlight && (
                 <div className="popupConfirmation" id="popupConfirmation">
