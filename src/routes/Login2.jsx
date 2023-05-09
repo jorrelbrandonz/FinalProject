@@ -24,20 +24,21 @@ export const Login2 = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(fData);
-        axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
-        .then((Response)=>{
-            if(Response){
-                navigate('/');
-                alert("Successful Login!");
-            }
-            else{
-                alert("Incorrect Email or Password");
-            }
+        axios.post('http://localhost/FinalProjectBackEnd/login.php', fData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         })
-        .catch(error=>alert(error.Response.data));
-       
-
-    }
+        .then((response) => {
+          if (response) {
+            navigate('/');
+            alert("Successful Login!");
+          }
+        })
+        .catch(error => {
+          alert("Incorrect Username or Password");
+        });
+      }
   
 
     return(

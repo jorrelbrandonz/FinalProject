@@ -18,7 +18,10 @@ export const Register = (props) => {
     const [age, setAge] = useState('');
     const [inputCode, setInputCode] = useState('');
     const [showPopup, setShowPopup] = useState(false);
-    const [accessCode, setAccessCode] = useState("123");
+
+    var accessCode;
+
+
 
     /*var userAcc = {"name":{name}, "pass":{pass}, "email": email, "age":{age}};
     var json = JSON.stringify(userAcc);*/
@@ -35,8 +38,16 @@ export const Register = (props) => {
 
       const handleAuthentication = (event) => {
         event.preventDefault();
+
+        axios.get('http://localhost/FinalProjectBackEnd/Registration.php')
+        .then(Response=>{
+            accessCode = Response.data;
+            console.log(accessCode);})
+        .catch(error=>alert(error));
+
+
         if (inputCode === accessCode){
-            handleSubmit(event);
+            alert("nigga");
         }
         else{
             alert("Wrong code!");

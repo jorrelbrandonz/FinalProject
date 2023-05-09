@@ -1,19 +1,24 @@
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
 
+    const navigate = useNavigate();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        const logout = 1;
-        axios.post('http://localhost/FinalProjectBackEnd/login.php', logout)
-            .then((Response) => {
-                if (Response) {
-                    alert("You have been logged out!");
-                }
-            }).catch(error => alert(error.Response.data));
-    }
-
+        fetch('http://localhost/FinalProjectBackEnd/logout.php')
+          .then((response) => {
+            if (response.ok) {
+              navigate('/');
+              alert("Successful Log out!");
+            } else {
+              throw new Error("Error calling logout.php");
+            }
+          })
+          .catch(error => alert(error.message));
+      }
     return (
         <>
             <br />
