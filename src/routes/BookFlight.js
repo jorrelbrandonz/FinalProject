@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import "./BookFlightStyles.css"
 import airport from '../assets/airport2.jpg';
+import axios from 'axios';
 
 function BookFlight() {
     const [selectedFlight, setSelectedFlight] = useState(null)
@@ -104,31 +105,17 @@ function BookFlight() {
 
     window.addEventListener("keydown", handleKeyDown)
 
-    const flights = [
-        {
-            departureAirport: "JFK",
-            departureTime: "9:00 am",
-            arrivalAirport: "LAX",
-            arrivalTime: "12:30 pm",
-            flightNumber: "AA123",
-            airline: "American Airlines",
-            price: "$250",
-            seatAvailability: "5 seats left",
-            class: "Economy",
-        },
-
-        {
-            departureAirport: "AFK",
-            departureTime: "8:00 am",
-            arrivalAirport: "LAC",
-            arrivalTime: "12:30 pm",
-            flightNumber: "33123",
-            airline: "Philippine Airlines",
-            price: "$150",
-            seatAvailability: "10 seats left",
-            class: "Business",
-        },
-    ]
+    const [flights, setFlights] = useState([]);
+    
+    useEffect(() => {
+        axios.get('http://localhost/devtest/Flights.php/')
+        .then(response => {
+            setFlights(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, []);
 
     return (
         <>
@@ -146,23 +133,19 @@ function BookFlight() {
                                 <th>Flight Number</th>
                                 <th>Airline</th>
                                 <th>Price</th>
-                                <th>Seat Availability</th>
-                                <th>Class</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {flights.map((flight) => (
-                                <tr key={flight.flightNumber}>
-                                    <td data-label="Departure Airport">{flight.departureAirport}</td>
-                                    <td data-label="Departure Time">{flight.departureTime}</td>
-                                    <td data-label="Arrival Airport">{flight.arrivalAirport}</td>
-                                    <td data-label="Arrival Time">{flight.arrivalTime}</td>
-                                    <td data-label="Flight Number">{flight.flightNumber}</td>
-                                    <td data-label="Airline">{flight.airline}</td>
-                                    <td data-label="Price">{flight.price}</td>
-                                    <td data-label="Seat Availability">{flight.seatAvailability}</td>
-                                    <td data-label="Class">{flight.class}</td>
+                        {flights.map((flight) => (
+                                <tr key={flight.FlightNumber}>
+                                    <td data-label="Departure Airport">{flight.DepartureAirport}</td>
+                                    <td data-label="Departure Time">{flight.Departure}</td>
+                                    <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
+                                    <td data-label="Arrival Time">{flight.Arrival}</td>
+                                    <td data-label="Airline">{flight.AirplaneType}</td>
+                                    <td data-label="Price">{flight.TicketPrice}</td>
+                                    <td data-label="Seat Availability">{flight.Passengers}</td>
                                     <td data-label="">
                                         <button className="btn" onClick={() => openPopUp(flight)}>Book Now</button>
                                     </td>
