@@ -19,9 +19,14 @@ export const Register = (props) => {
     const [inputCode, setInputCode] = useState('');
     const [showPopup, setShowPopup] = useState(false);
 
+<<<<<<< HEAD
     var accessCode;
 
 
+=======
+    //VERIFICATION ACCESS CODE
+    const [accessCode, setAccessCode] = useState("123");
+>>>>>>> 7ab2603c4e6cc24773b253ba44fb15e6c07dc768
 
     /*var userAcc = {"name":{name}, "pass":{pass}, "email": email, "age":{age}};
     var json = JSON.stringify(userAcc);*/
