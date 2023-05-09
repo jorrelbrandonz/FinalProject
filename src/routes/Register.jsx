@@ -18,6 +18,8 @@ export const Register = (props) => {
     const [age, setAge] = useState('');
     const [inputCode, setInputCode] = useState('');
     const [showPopup, setShowPopup] = useState(false);
+
+    //VERIFICATION ACCESS CODE
     const [accessCode, setAccessCode] = useState("123");
 
     /*var userAcc = {"name":{name}, "pass":{pass}, "email": email, "age":{age}};

@@ -1,7 +1,8 @@
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import React from 'react';
 
-function Profile() {
+function Profile({ user }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -14,6 +15,7 @@ function Profile() {
             }).catch(error => alert(error.Response.data));
     }
 
+
     return (
         <>
             <br />
@@ -24,8 +26,14 @@ function Profile() {
             <br />
             <br />
             <br />
-            <h1>Profile Page not yet done</h1>
-            <button type="submit" onClick={handleSubmit} > Log out </button>
+            <div>
+                <h1>User Profile Page</h1>
+                <ul>
+                    <h2>{user.userEmail}</h2>
+                    <h3>{user.userPass}</h3>
+                </ul>
+                <button type="submit" onClick={handleSubmit} > Log out </button>
+            </div>
         </>
     )
 }
