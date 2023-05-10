@@ -16,7 +16,7 @@ export const Login2 = (props) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    
+
     const user = {
         userEmail: {email},
         userPass: {pass}
@@ -34,8 +34,7 @@ export const Login2 = (props) => {
             if(Response){
                 navigate('/');
                 alert("Successful Login!");
-                 
-    <Profile user = {user} />
+                 <Profile user = {user} />
             }
             else{
                 alert("Incorrect Email or Password");

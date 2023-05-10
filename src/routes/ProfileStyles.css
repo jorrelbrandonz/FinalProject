@@ -1,0 +1,58 @@
+.UserProfile {
+    color: black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.ProfileHeader {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.ProfileHeader h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.ProfileHeader p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.ProfileBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.ProfilePicture {
+    margin-bottom: 20px;
+}
+
+
+.ProfilePicture img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.ProfileInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.ProfileInfo p {
+    margin: 10px 0;
+    text-align: left;
+}
+
+.ProfileInfo strong {
+    margin-right: 10px;
+}
