@@ -6,7 +6,6 @@ import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import { redirect } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import Profile from './Profile';
 
 
 export const Login2 = (props) => {
@@ -16,11 +15,6 @@ export const Login2 = (props) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-
-    const user = {
-        userEmail: {email},
-        userPass: {pass}
-    };
 
     let fData = new FormData();
     fData.append('email', email);
@@ -34,16 +28,13 @@ export const Login2 = (props) => {
             if(Response){
                 navigate('/');
                 alert("Successful Login!");
-                 <Profile user = {user} />
+
             }
             else{
                 alert("Incorrect Email or Password");
             }
         })
-        .catch(error=>alert(error.Response.data));
-       
-
-    }
+      }
   
 
     return(

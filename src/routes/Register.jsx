@@ -41,8 +41,16 @@ export const Register = (props) => {
 
       const handleAuthentication = (event) => {
         event.preventDefault();
+
+        axios.get('http://localhost/FinalProjectBackEnd/Registration.php')
+        .then(Response=>{
+            accessCode = Response.data;
+            console.log(accessCode);})
+        .catch(error=>alert(error));
+
+
         if (inputCode === accessCode){
-            handleSubmit(event);
+            alert("nigga");
         }
         else{
             alert("Wrong code!");
