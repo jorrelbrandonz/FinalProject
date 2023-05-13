@@ -4,7 +4,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./ProfileStyles.css";
 import profbg from '../assets/profbg.jpg';
-
 function Profile() {
 
     /*const navigate = useNavigate();
@@ -50,7 +49,6 @@ function Profile() {
                 <br />
                 <button onClick={handleSubmit}>Log-out</button>
             </div>
-
         </>
     )
 }
