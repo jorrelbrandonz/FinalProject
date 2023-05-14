@@ -135,7 +135,7 @@ function BookFlight() {
     const [flights, setFlights] = useState([]);
     
     useEffect(() => {
-        axios.get('http://localhost/devtest/Flights.php/')
+        axios.get('http://localhost/FinalProjectBackEnd/Flights.php/')
         .then(response => {
             setFlights(response.data);
         })
