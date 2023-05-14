@@ -1,28 +1,27 @@
 import Navbar from "../components/Navbar";
-import {Login2} from "./Login2";
-import {Register} from "./Register";
-import React, {useState} from 'react';
+import { Login2 } from "./Login2";
+import { Register } from "./Register";
+import React, { useState } from 'react';
 import "./LoginStyles.css";
 import planebg from '../assets/planebg.jpg';
 import { Navigate } from "react-router-dom";
 
 
-function Login () {
-  
-    const [currentForm, setCurrentForm] = useState('Login2');
-    const toggleForm = (formName) => {
-      setCurrentForm(formName);
-    }
-    return (<>
-    <Navbar/>
+function Login() {
+
+  const [currentForm, setCurrentForm] = useState('Login2');
+  const toggleForm = (formName) => {
+    setCurrentForm(formName);
+  }
+  return (<>
     <img className="logbg" alt="img" src={planebg} />
-      <div className="login2style">
+    <div className="login2style">
       {
-        currentForm === 'Login2' ? <Login2 onFormSwitch={toggleForm}/> : <Register onFormSwitch={toggleForm}/>
+        currentForm === 'Login2' ? <Login2 onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
       }
-      </div>
-      </>
-    )
+    </div>
+  </>
+  )
 }
 
 export default Login;

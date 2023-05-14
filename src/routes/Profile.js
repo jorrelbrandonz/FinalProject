@@ -1,30 +1,24 @@
 import Navbar from "../components/Navbar";
 import axios from "axios";
-<<<<<<< HEAD
-import { useNavigate } from 'react-router-dom';
-=======
 import React from 'react';
->>>>>>> 7ab2603c4e6cc24773b253ba44fb15e6c07dc768
+import { useNavigate } from 'react-router-dom';
+import "./ProfileStyles.css";
+import profbg from '../assets/profbg.jpg';
+function Profile() {
 
-function Profile({ user }) {
+    /*const navigate = useNavigate();
+    function noUser() {
 
-    const navigate = useNavigate();
-    
+        navigate('/login');
+        alert("Please log in first!!");
+    }
+
+    if (!user) {
+        return (noUser())
+    }*/
+
     const handleSubmit = (e) => {
         e.preventDefault();
-<<<<<<< HEAD
-        fetch('http://localhost/FinalProjectBackEnd/logout.php')
-          .then((response) => {
-            if (response.ok) {
-              navigate('/');
-              alert("Successful Log out!");
-            } else {
-              throw new Error("Error calling logout.php");
-            }
-          })
-          .catch(error => alert(error.message));
-      }
-=======
         const logout = 1;
         axios.post('http://localhost/FinalProjectBackEnd/login.php', logout)
             .then((Response) => {
@@ -35,24 +29,25 @@ function Profile({ user }) {
     }
 
 
->>>>>>> 7ab2603c4e6cc24773b253ba44fb15e6c07dc768
     return (
         <>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div>
-                <h1>User Profile Page</h1>
-                <ul>
-                    <h2>{user.userEmail}</h2>
-                    <h3>{user.userPass}</h3>
-                </ul>
-                <button type="submit" onClick={handleSubmit} > Log out </button>
+            <div className="UserProfile">
+                <div className="ProfilePicture">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile" />
+                </div>
+                <div className="ProfileHeader">
+                    <h1>Full Name</h1>
+                </div>
+                <div className="ProfileBody">
+                    <div className="ProfileInfo">
+                        <p><strong>Email:</strong>Insert email backend here</p>
+                        <p><strong>Password:</strong>Insert password backend here</p>
+                        <p><strong>Age:</strong>Insert Age backend here</p>
+                        <p><strong>Gender:</strong>Insert Gender backend here</p>
+                    </div>
+                </div>
+                <br />
+                <button onClick={handleSubmit}>Log-out</button>
             </div>
         </>
     )

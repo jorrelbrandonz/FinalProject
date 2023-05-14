@@ -4,17 +4,17 @@ import heroimghome from '../assets/hero2.jpg';
 import Destination from "../components/Destination";
 import axios from "axios";
 
-function Home () {
+function Home() {
 
     return (
         <>
-        <Hero cName="hero" 
-        heroImg={heroimghome} 
-        title="Your Journey Your Story" text="Choose your Favorite Destination." 
-        buttonText="Book a Flight Now" 
-        url="/bookflight" 
-        btnClass="show"/>
-        <Destination />
+            <Hero cName="hero"
+                heroImg={heroimghome}
+                title="Your Journey Your Story" text="Flight Bookings Made Easier, Choose your Favorite Destination"
+                buttonText="Book a Flight Now"
+                url="/bookflight"
+                btnClass="show" />
+            <Destination />
         </>
     );
 }

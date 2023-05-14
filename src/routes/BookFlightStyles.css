@@ -112,6 +112,25 @@
     width: 100%;
 }
 
+.popupOverview {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    backdrop-filter: blur(5px);
+    text-align: center;
+    margin-top: 40%;
+    margin-bottom: 40%;
+}
+
 .popupConfirmation.open-popup {
     display: flex;
     flex-direction: column;
@@ -173,6 +192,113 @@
 .popupConfirmation .cancel-btn {
     background-color: red;
     color: white;
+}
+
+
+
+.popupOV {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    z-index: 9999;
+    border: 3px solid black;
+    border-radius: 30px;
+    padding: 3rem;
+    margin-right: 25%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+
+    width: 30%;
+    height: 90%;
+}
+
+.popupOV h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.popupOV input[type="text"],
+.popupOV input[type="email"],
+.popupOV input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.popupOV input[type="text"]:read-only,
+.popupOV input[type="email"]:read-only,
+.popupOV input[type="password"]:read-only {
+    background-color: #eee;
+}
+
+.popupOV p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.popupOV p:last-child {
+    margin-bottom: 0;
+}
+
+.popupOV button[type="submit"] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.popupOV button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+.popupOV p:nth-child(1) input[type="text"],
+.popupOV p:nth-child(2) input[type="text"],
+.popupOV p:nth-child(3) input[type="text"],
+.popupOV p:nth-child(4) input[type="text"],
+.popupOV p:nth-child(5) input[type="text"],
+.popupOV p:last-child input[type="password"] {
+    width: 50%;
+}
+
+.popupOV p:nth-child(1),
+.popupOV p:nth-child(2),
+.popupOV p:nth-child(3),
+.popupOV p:nth-child(4),
+.popupOV p:nth-child(5),
+.popupOV p:last-child {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+}
+
+.popupOV p:nth-child(1) input[type="text"] {
+    margin-right: 10px;
+}
+
+.popupOV p:nth-child(3),
+.popupOV p:nth-child(4),
+.popupOV p:nth-child(5) {
+    margin-top: 10px;
 }
 
 .popupPaymentOption {

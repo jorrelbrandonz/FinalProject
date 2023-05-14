@@ -6,7 +6,6 @@ import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import { redirect } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import Profile from './Profile';
 
 
 export const Login2 = (props) => {
@@ -16,11 +15,6 @@ export const Login2 = (props) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    
-    const user = {
-        userEmail: {email},
-        userPass: {pass}
-    };
 
     let fData = new FormData();
     fData.append('email', email);
@@ -29,34 +23,17 @@ export const Login2 = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(fData);
-<<<<<<< HEAD
-        axios.post('http://localhost/FinalProjectBackEnd/login.php', fData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-=======
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         .then((Response)=>{
             if(Response){
                 navigate('/');
                 alert("Successful Login!");
-                 
-    <Profile user = {user} />
+
             }
             else{
                 alert("Incorrect Email or Password");
             }
->>>>>>> 7ab2603c4e6cc24773b253ba44fb15e6c07dc768
         })
-        .then((response) => {
-          if (response) {
-            navigate('/');
-            alert("Successful Login!");
-          }
-        })
-        .catch(error => {
-          alert("Incorrect Username or Password");
-        });
       }
   
 
