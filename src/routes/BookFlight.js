@@ -135,7 +135,7 @@ function BookFlight() {
     const [flights, setFlights] = useState([]);
     
     useEffect(() => {
-        axios.get('http://localhost/FinalProjectBackEnd/Flights.php/')
+        axios.get('http://localhost/devtest/Flights.php/')
         .then(response => {
             setFlights(response.data);
         })
@@ -153,25 +153,27 @@ function BookFlight() {
                     <table className="table">
                         <thead>
                             <tr>
+                                <th>Flight Number</th>
                                 <th>Departure Airport</th>
                                 <th>Departure Time</th>
                                 <th>Arrival Airport</th>
                                 <th>Arrival Time</th>
-                                <th>Flight Number</th>
                                 <th>Airline</th>
                                 <th>Price</th>
+                                <th>Seat Availability</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         {flights.map((flight) => (
                                 <tr key={flight.FlightNumber}>
+                                    <td data-label="FlightNumber">{flight.FlightNumber}</td>
                                     <td data-label="Departure Airport">{flight.DepartureAirport}</td>
                                     <td data-label="Departure Time">{flight.Departure}</td>
                                     <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
                                     <td data-label="Arrival Time">{flight.Arrival}</td>
                                     <td data-label="Airline">{flight.AirplaneType}</td>
-                                    <td data-label="Price">{flight.TicketPrice}</td>
+                                    <td data-label="Price">{'$'+ flight.TicketPrice}</td>
                                     <td data-label="Seat Availability">{flight.Passengers}</td>
                                     <td data-label="">
                                         <button className="btn" onClick={() => openPopUp(flight)}>Book Now</button>
@@ -188,21 +190,20 @@ function BookFlight() {
                         <h2>BOOK FLIGHT CONFIRMATION</h2>
                         <div className="flight-details">
                             <p>
-                                <span>Flight Number:</span> {selectedFlight.flightNumber}
+                                <span>Flight Number:</span> {selectedFlight.FlightNumber}
                             </p>
                             <p>
-                                <span>Departure:</span> {selectedFlight.departureAirport} -{" "}
-                                {selectedFlight.departureTime}
+                                <span>Departure:</span> {selectedFlight.DepartureAirport} -{" "}
+                                {selectedFlight.Departure}                  </p>
+                            <p>
+                                <span>Arrival:</span> {selectedFlight.ArrivalAirport} -{" "}
+                                {selectedFlight.Arrival}
                             </p>
                             <p>
-                                <span>Arrival:</span> {selectedFlight.arrivalAirport} -{" "}
-                                {selectedFlight.arrivalTime}
+                                <span>Price:</span> {selectedFlight.TicketPrice}
                             </p>
                             <p>
-                                <span>Price:</span> {selectedFlight.price}
-                            </p>
-                            <p>
-                                <span>Seat Availability:</span> {selectedFlight.seatAvailability}
+                                <span>Seat Availability:</span> {selectedFlight.Passengers}
                             </p>
                         </div>
                         <div className="buttons">
@@ -304,12 +305,11 @@ function BookFlight() {
                     <h2>Please Complete Information</h2>
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Passenger Name" name="name" required />
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Passenger Email" name="email" required />
-                    <p>Departure Time<input type="text" value={selectedFlight?.departureTime} readOnly placeholder="Departure Time" name="departTime" /></p>
-                    <p>Flight Number<input type="text" value={selectedFlight?.flightNumber} readOnly placeholder="Flight Number" name="flightNumber" /></p>
-                    <p>Departure Airport<input type="text" value={selectedFlight?.departureAirport} readOnly placeholder="Departure Airport" name="departAir" /></p>
-                    <p>Price<input type="text" value={selectedFlight?.price} readOnly placeholder="Price" name="price" /></p>
-                    <p>Airline<input type="text" value={selectedFlight?.airline} readOnly placeholder="Airline" name="airline" /></p>
-                    <p>Class<input type="text" value={selectedFlight?.class} readOnly placeholder="Flight Class" name="flightClass" /></p>
+                    <p>Departure Time<input type="text" value={selectedFlight?.Departure} readOnly placeholder="Departure Time" name="departTime" /></p>
+                    <p>Flight Number<input type="text" value={selectedFlight?.FlightNumber} readOnly placeholder="Flight Number" name="flightNumber" /></p>
+                    <p>Departure Airport<input type="text" value={selectedFlight?.DepartureAirport} readOnly placeholder="Departure Airport" name="departAir" /></p>
+                    <p>Price<input type="text" value={selectedFlight?.TicketPrice} readOnly placeholder="Price" name="price" /></p>
+                    <p>Airline<input type="text" value={selectedFlight?.AirplaneType} readOnly placeholder="Airplane" name="airline" /></p>
                     <p>Private Code (View in E-mail)<input type="password" value={randomNum} readOnly placeholder="Password" name="privCode" /></p>
                     <button type="submit" value="Send">Confirm</button>
                     <br />
