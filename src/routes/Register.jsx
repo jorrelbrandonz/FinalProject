@@ -4,6 +4,7 @@ import { FaLock } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
 import { FaCalendar } from "react-icons/fa";
 import { FaOdnoklassniki } from "react-icons/fa";
+import { BsGenderAmbiguous } from "react-icons/bs";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
@@ -16,6 +17,8 @@ export const Register = (props) => {
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
+    const [gender, setGender] = useState('');
+
     const [inputCode, setInputCode] = useState('');
     const [showPopup, setShowPopup] = useState(false);
 
@@ -29,6 +32,7 @@ export const Register = (props) => {
     fData.append('pass', pass);
     fData.append('email', email);
     fData.append('age', age);
+    fData.append('gender', gender);
 
     const handleVerify = (event) => {
         event.preventDefault();
@@ -85,6 +89,9 @@ export const Register = (props) => {
 
         <label htmlFor="age"><FaCalendar/>   Age</label>
         <input value={age} onChange={(e) => setAge(e.target.value)} type='number' id="age" name="age" required/>
+
+        <label htmlFor="gender"><BsGenderAmbiguous/>  Gender</label>
+        <input value={gender} onChange={(e) => setGender(e.target.value)} type='text' id="gender" name="gender" required placeholder="e.g. Male"/>
 
         <button className="proc" type="submit">Sign-up</button>
         <button className="link-btn" type = "button" onClick={() => props.onFormSwitch('Login2')}>Already have an account? Log-in here.</button>

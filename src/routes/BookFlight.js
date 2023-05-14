@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react"
 import "./BookFlightStyles.css"
 import airport from '../assets/airport2.jpg';
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+import axios from 'axios';
 
 function BookFlight() {
     const [selectedFlight, setSelectedFlight] = useState(null)
@@ -8,10 +11,28 @@ function BookFlight() {
     const [paymentClicked, setPaymentClicked] = useState(false)
     const [gcashClicked, setGCASHClicked] = useState(false)
     const [creditCardClicked, setCreditCardClicked] = useState(false)
+    const [showPopup, setShowPopup] = useState(false);
     const [gcashNumber, setGCASHNumber] = useState("")
     const [nameOnCard, setNameOnCard] = useState("")
     const [cardNumber, setCardNumber] = useState("")
     const [expirationDate, setExpirationDate] = useState("")
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    const form = useRef();
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+        alert("Successfull booking!");
+        closePopUp();
+        emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+        e.target.reset();
+    };
 
     function openPopUp(flight) {
         setSelectedFlight(flight)
@@ -23,6 +44,7 @@ function BookFlight() {
         setPaymentClicked(false)
         setGCASHClicked(false)
         setCreditCardClicked(false)
+        setShowPopup(false)
         const blur = document.getElementById("blur")
         blur.classList.remove("active")
     }
@@ -33,30 +55,36 @@ function BookFlight() {
         }
     }
 
-    function handlePaymentClick() {
+    const handlePaymentClick = (event) => {
+        event.preventDefault();
         setPaymentClicked(true)
     }
 
-    function handleGCASHClick() {
+    const handleGCASHClick = (event) => {
+        event.preventDefault();
         setGCASHClicked(true)
         setPaymentMethod('GCASH');
         const blur = document.getElementById("blur")
         blur.classList.toggle("active")
     }
 
-    function handleCreditCardClick() {
+    const handleCreditCardClick = (event) => {
+        event.preventDefault();
         setCreditCardClicked(true)
         setPaymentMethod('Credit Card');
         const blur = document.getElementById("blur")
         blur.classList.toggle("active")
     }
 
-    function handleGCASHPayment() {
-        alert(`Payment successful using ${paymentMethod}: ${gcashNumber}`);
+
+    const handleGCASHPayment = (event) => {
+        event.preventDefault();
+        setShowPopup(true);
     }
 
-    function handleCreditCardPayment() {
-        alert(`Payment successful using ${paymentMethod}: ${nameOnCard}, ${cardNumber}, ${expirationDate}`);
+    const handleCreditCardPayment = (event) => {
+        event.preventDefault();
+        setShowPopup(true);
     }
 
     useEffect(() => {
@@ -100,35 +128,21 @@ function BookFlight() {
                 blur.classList.remove("active")
             }
         }
-    }, [selectedFlight, paymentClicked, gcashClicked, creditCardClicked])
+    }, [selectedFlight, paymentClicked, gcashClicked, creditCardClicked, showPopup])
 
     window.addEventListener("keydown", handleKeyDown)
 
-    const flights = [
-        {
-            departureAirport: "JFK",
-            departureTime: "9:00 am",
-            arrivalAirport: "LAX",
-            arrivalTime: "12:30 pm",
-            flightNumber: "AA123",
-            airline: "American Airlines",
-            price: "$250",
-            seatAvailability: "5 seats left",
-            class: "Economy",
-        },
-
-        {
-            departureAirport: "AFK",
-            departureTime: "8:00 am",
-            arrivalAirport: "LAC",
-            arrivalTime: "12:30 pm",
-            flightNumber: "33123",
-            airline: "Philippine Airlines",
-            price: "$150",
-            seatAvailability: "10 seats left",
-            class: "Business",
-        },
-    ]
+    const [flights, setFlights] = useState([]);
+    
+    useEffect(() => {
+        axios.get('http://localhost/devtest/Flights.php/')
+        .then(response => {
+            setFlights(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, []);
 
     return (
         <>
@@ -146,23 +160,19 @@ function BookFlight() {
                                 <th>Flight Number</th>
                                 <th>Airline</th>
                                 <th>Price</th>
-                                <th>Seat Availability</th>
-                                <th>Class</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {flights.map((flight) => (
-                                <tr key={flight.flightNumber}>
-                                    <td data-label="Departure Airport">{flight.departureAirport}</td>
-                                    <td data-label="Departure Time">{flight.departureTime}</td>
-                                    <td data-label="Arrival Airport">{flight.arrivalAirport}</td>
-                                    <td data-label="Arrival Time">{flight.arrivalTime}</td>
-                                    <td data-label="Flight Number">{flight.flightNumber}</td>
-                                    <td data-label="Airline">{flight.airline}</td>
-                                    <td data-label="Price">{flight.price}</td>
-                                    <td data-label="Seat Availability">{flight.seatAvailability}</td>
-                                    <td data-label="Class">{flight.class}</td>
+                        {flights.map((flight) => (
+                                <tr key={flight.FlightNumber}>
+                                    <td data-label="Departure Airport">{flight.DepartureAirport}</td>
+                                    <td data-label="Departure Time">{flight.Departure}</td>
+                                    <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
+                                    <td data-label="Arrival Time">{flight.Arrival}</td>
+                                    <td data-label="Airline">{flight.AirplaneType}</td>
+                                    <td data-label="Price">{flight.TicketPrice}</td>
+                                    <td data-label="Seat Availability">{flight.Passengers}</td>
                                     <td data-label="">
                                         <button className="btn" onClick={() => openPopUp(flight)}>Book Now</button>
                                     </td>
@@ -173,32 +183,34 @@ function BookFlight() {
                 </div>
             </div>
             {selectedFlight && (
-                <div className="popupConfirmation" id="popupConfirmation">
-                    <h2>BOOK FLIGHT CONFIRMATION</h2>
-                    <div className="flight-details">
-                        <p>
-                            <span>Flight Number:</span> {selectedFlight.flightNumber}
-                        </p>
-                        <p>
-                            <span>Departure:</span> {selectedFlight.departureAirport} -{" "}
-                            {selectedFlight.departureTime}
-                        </p>
-                        <p>
-                            <span>Arrival:</span> {selectedFlight.arrivalAirport} -{" "}
-                            {selectedFlight.arrivalTime}
-                        </p>
-                        <p>
-                            <span>Price:</span> {selectedFlight.price}
-                        </p>
-                        <p>
-                            <span>Seat Availability:</span> {selectedFlight.seatAvailability}
-                        </p>
+                <form onSubmit={handlePaymentClick}>
+                    <div className="popupConfirmation" id="popupConfirmation">
+                        <h2>BOOK FLIGHT CONFIRMATION</h2>
+                        <div className="flight-details">
+                            <p>
+                                <span>Flight Number:</span> {selectedFlight.flightNumber}
+                            </p>
+                            <p>
+                                <span>Departure:</span> {selectedFlight.departureAirport} -{" "}
+                                {selectedFlight.departureTime}
+                            </p>
+                            <p>
+                                <span>Arrival:</span> {selectedFlight.arrivalAirport} -{" "}
+                                {selectedFlight.arrivalTime}
+                            </p>
+                            <p>
+                                <span>Price:</span> {selectedFlight.price}
+                            </p>
+                            <p>
+                                <span>Seat Availability:</span> {selectedFlight.seatAvailability}
+                            </p>
+                        </div>
+                        <div className="buttons">
+                            <button className="cancel-btn" onClick={() => { closePopUp() }}>Cancel</button>
+                            <button className="proceed-btn" type="submit">Proceed to Payment</button>
+                        </div>
                     </div>
-                    <div className="buttons">
-                        <button className="cancel-btn" onClick={() => { closePopUp() }}>Cancel</button>
-                        <button className="proceed-btn" onClick={handlePaymentClick}>Proceed to Payment</button>
-                    </div>
-                </div>
+                </form>
             )}
             {paymentClicked && (
                 <div className="popupPaymentOption">
@@ -287,6 +299,24 @@ function BookFlight() {
                     </div>
                 </div>
             )}
+            {showPopup && (
+                <form className="popupOV" onSubmit={sendEmail} ref={form}>
+                    <h2>Please Complete Information</h2>
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Passenger Name" name="name" required />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Passenger Email" name="email" required />
+                    <p>Departure Time<input type="text" value={selectedFlight?.departureTime} readOnly placeholder="Departure Time" name="departTime" /></p>
+                    <p>Flight Number<input type="text" value={selectedFlight?.flightNumber} readOnly placeholder="Flight Number" name="flightNumber" /></p>
+                    <p>Departure Airport<input type="text" value={selectedFlight?.departureAirport} readOnly placeholder="Departure Airport" name="departAir" /></p>
+                    <p>Price<input type="text" value={selectedFlight?.price} readOnly placeholder="Price" name="price" /></p>
+                    <p>Airline<input type="text" value={selectedFlight?.airline} readOnly placeholder="Airline" name="airline" /></p>
+                    <p>Class<input type="text" value={selectedFlight?.class} readOnly placeholder="Flight Class" name="flightClass" /></p>
+                    <p>Private Code (View in E-mail)<input type="password" value={randomNum} readOnly placeholder="Password" name="privCode" /></p>
+                    <button type="submit" value="Send">Confirm</button>
+                    <br />
+                    <p>*Flight details will be sent to the email entered in the form</p>
+                </form>
+            )}
+
         </>
     )
 }
