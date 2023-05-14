@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { FaEnvelope } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
@@ -11,7 +11,6 @@ import emailjs from '@emailjs/browser';
 
 
 export const Register = (props) => {
-
     
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -19,15 +18,11 @@ export const Register = (props) => {
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
-
     const [inputCode, setInputCode] = useState('');
     const [showPopup, setShowPopup] = useState(false);
 
-    //VERIFICATION ACCESS CODE
-    const [accessCode, setAccessCode] = useState("123");
+    const [randomNum, setRandom] = useState(Math.floor(1000 + Math.random() * 9000));
 
-    /*var userAcc = {"name":{name}, "pass":{pass}, "email": email, "age":{age}};
-    var json = JSON.stringify(userAcc);*/
     let fData = new FormData(); 
     fData.append('name', name);
     fData.append('pass', pass);
@@ -38,50 +33,50 @@ export const Register = (props) => {
     const handleVerify = (event) => {
         event.preventDefault();
         setShowPopup(true);
+        sendEmail(event);
+        alert(randomNum);
+        alert(inputCode);
       };
 
       const handleAuthentication = (event) => {
         event.preventDefault();
-
-        /*axios.get('http://localhost/FinalProjectBackEnd/Registration.php') we dont need this because we will generate the code on the JS file
-        .then(Response=>{
-            accessCode = Response.data;
-            console.log(accessCode);})
-        .catch(error=>alert(error))*/;
-
-
-       
+        if (inputCode == randomNum){
+            handleSubmit();
+        }
+        else{
+            alert("Wrong code!");
+        }
+      };
 
    function handleSubmit() {
         console.log(fData);
         axios.post('http://localhost/FinalProjectBackEnd/Registration.php', fData)
         .then((Response)=>{
             if(Response){
-                verificationCode();
+                console.log(Response);
+                navigate('/');
+                alert("Registration Successful!");
             }
         })
         .catch(error=>alert(error));
-    };
 
-    function verificationCode(){
-        let verificationCode = Math.floor(Math.random()*100000+1);
-        alert(verificationCode);
-        //emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
-        if (inputCode === verificationCode){
-            alert("Registration Successful!");
-            navigate('/');
-        }
-        else{
-            alert("Wrong code!");
-        }
+    };
+    const form = useRef();
+    const sendEmail = (e) => {
+        e.preventDefault();
+    
+        emailjs.sendForm('service_wwc6qf6', 'template_oewl9mg', form.current, 'cyXE5j-r-pA6DZ60s')
+          .then((result) => {
+              console.log(result.text);
+          }, (error) => {
+              console.log(error.text);
+          });
       };
-    }
 
     
     return(
     <div className='auth-form container'>
-    
-    <form className="register-form" onSubmit={handleVerify}>
+    <form className="register-form" onSubmit={handleVerify} ref={form}>
     <h2>Sign-up</h2>
         <label htmlFor="name"><VscAccount/>   Full name</label>
         <input value={name} onChange={(e) => setName(e.target.value)} type="text" name='name' id='name' placeholder="Enter your fullname" required/>
@@ -98,15 +93,16 @@ export const Register = (props) => {
         <label htmlFor="gender"><BsGenderAmbiguous/>  Gender</label>
         <input value={gender} onChange={(e) => setGender(e.target.value)} type='text' id="gender" name="gender" required placeholder="e.g. Male"/>
 
-        <button className="proc" type="submit">Sign-up</button>
+        <p>Private Code (View in E-mail)<input type="password" value={randomNum} onChange={(e) => setRandom(e.target.value)} readOnly placeholder="Password" name="code" /></p>
+
+        <button className="proc" type="submit" value="Send">Sign-up</button>
         <button className="link-btn" type = "button" onClick={() => props.onFormSwitch('Login2')}>Already have an account? Log-in here.</button>
     </form>
-    
     {showPopup && (
         <form className="popup">
         <h2>We've sent a code to your email address.</h2>
         <p>Please enter the code for verification</p>
-          <input value={inputCode} onChange={(e) => setInputCode(e.target.value)} type='number' id="inputCode" name="inputCode" required/>
+          <input value={inputCode} onChange={(e) => setInputCode(e.target.value)} type='text' id="inputCode" name="inputCode" required/>
           <button onClick={handleAuthentication}>Enter</button>
           <button onClick={() => setShowPopup(false)}>Close</button>
         </form>

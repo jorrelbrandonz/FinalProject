@@ -8,8 +8,8 @@ import profbg from '../assets/profbg.jpg';
 
 function Profile() {
 
-  const {auth} = useContext(AuthContext);
-  const navigate = useNavigate();
+    const { auth } = useContext(AuthContext);
+    const navigate = useNavigate();
     /*const navigate = useNavigate();
     function noUser() {
 

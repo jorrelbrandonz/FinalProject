@@ -19,11 +19,11 @@ function BookFlight() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const form = useRef();
 
+    const form = useRef();
     const sendEmail = (e) => {
         e.preventDefault();
-        alert("Successfull booking!");
+        alert("Successful booking!");
         closePopUp();
         emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
             .then((result) => {
@@ -133,15 +133,15 @@ function BookFlight() {
     window.addEventListener("keydown", handleKeyDown)
 
     const [flights, setFlights] = useState([]);
-    
+
     useEffect(() => {
         axios.get('http://localhost/FinalProjectBackEnd/Flights.php/')
-        .then(response => {
-            setFlights(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
+            .then(response => {
+                setFlights(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -165,7 +165,7 @@ function BookFlight() {
                             </tr>
                         </thead>
                         <tbody>
-                        {flights.map((flight) => (
+                            {flights.map((flight) => (
                                 <tr key={flight.FlightNumber}>
                                     <td data-label="FlightNumber">{flight.FlightNumber}</td>
                                     <td data-label="Departure Airport">{flight.DepartureAirport}</td>
@@ -173,7 +173,7 @@ function BookFlight() {
                                     <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
                                     <td data-label="Arrival Time">{flight.Arrival}</td>
                                     <td data-label="Airline">{flight.AirplaneType}</td>
-                                    <td data-label="Price">{'$'+ flight.TicketPrice}</td>
+                                    <td data-label="Price">{'$' + flight.TicketPrice}</td>
                                     <td data-label="Seat Availability">{flight.Passengers}</td>
                                     <td data-label="">
                                         <button className="btn" onClick={() => openPopUp(flight)}>Book Now</button>
