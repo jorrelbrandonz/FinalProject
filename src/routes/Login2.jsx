@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useReducer} from "react";
 import { FaEnvelope } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaPlane } from "react-icons/fa";
@@ -11,16 +11,20 @@ import AuthContext from "../context/AuthProvider";
 
 
 
+
+
 export const Login2 = (props) => {
     //const [myBoolean, setBoolean] = useState(false);
    
     //let it post (check)
     //if post success meaning successful login store axios.get then store it as a cookie
+    const getEmail= localStorage.getItem("emailData");
+    const getPassword = localStorage.getItem("passwordData");
     const {setAuth} = useContext(AuthContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [users, setUser] = useState('');
+    //const [users, setUser] = useState('');
    // const dispatch = useDispatch();
     //const token = "temptoken";
 
@@ -34,15 +38,9 @@ export const Login2 = (props) => {
     
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         .then((response) => {
-          /*if (response) {
-            storeCookie();
-            navigate('/');
-            alert("Successful Login!");
-          }*/
-          //dispatch(setCredentials({email, token}));
-          setAuth({email, pass});
-          setEmail('');
-          setPass('');
+          localStorage.setItem("emailData", email);
+          localStorage.setItem("passwordData", pass);
+          alert("Successful Login!");
           navigate('/');
           
         })

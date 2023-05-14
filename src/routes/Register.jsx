@@ -7,6 +7,7 @@ import { FaOdnoklassniki } from "react-icons/fa";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 
 
 export const Register = (props) => {
@@ -42,20 +43,14 @@ export const Register = (props) => {
       const handleAuthentication = (event) => {
         event.preventDefault();
 
-        axios.get('http://localhost/FinalProjectBackEnd/Registration.php')
+        /*axios.get('http://localhost/FinalProjectBackEnd/Registration.php') we dont need this because we will generate the code on the JS file
         .then(Response=>{
             accessCode = Response.data;
             console.log(accessCode);})
-        .catch(error=>alert(error));
+        .catch(error=>alert(error))*/;
 
 
-        if (inputCode === accessCode){
-            alert("nigga");
-        }
-        else{
-            alert("Wrong code!");
-        }
-      };
+       
 
    function handleSubmit(event) {
        event.preventDefault();
@@ -63,14 +58,25 @@ export const Register = (props) => {
         axios.post('http://localhost/FinalProjectBackEnd/Registration.php', fData)
         .then((Response)=>{
             if(Response){
-                console.log(Response);
-                navigate('/');
-                alert("Registration Successful!");
+                verificationCode();
             }
         })
         .catch(error=>alert(error));
-
     };
+
+    function verificationCode(){
+        let verificationCode = Math.floor(Math.random()*100000+1);
+        alert(verificationCode);
+        //emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
+        if (inputCode === verificationCode){
+            alert("Registration Successful!");
+            navigate('/');
+        }
+        else{
+            alert("Wrong code!");
+        }
+      };
+    }
 
     
     return(

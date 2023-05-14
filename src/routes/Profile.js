@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/AuthProvider';
 import Navbar from "../components/Navbar";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useMatch, useNavigate } from 'react-router-dom';
 import "./ProfileStyles.css";
 import profbg from '../assets/profbg.jpg';
 
 function Profile() {
 
   const {auth} = useContext(AuthContext);
+  const navigate = useNavigate();
     /*const navigate = useNavigate();
     function noUser() {
 
@@ -22,13 +23,9 @@ function Profile() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const logout = 1;
-        axios.post('http://localhost/FinalProjectBackEnd/login.php', logout)
-            .then((Response) => {
-                if (Response) {
-                    alert("You have been logged out!");
-                }
-            }).catch(error => alert(error.Response.data));
+        localStorage.setItem("emailData", "");
+        localStorage.setItem("passwordData", "");
+        navigate("/");
     }
 
 
@@ -43,8 +40,8 @@ function Profile() {
                 </div>
                 <div className="ProfileBody">
                     <div className="ProfileInfo">
-                        <p><strong>Email:</strong>Insert email backend here</p>
-                        <p><strong>Password:</strong>Insert password backend here</p>
+                        <p><strong>Email:</strong>{localStorage.getItem("emailData")}</p>
+                        <p><strong>Password:</strong>{localStorage.getItem("passwordData")}</p>
                         <p><strong>Age:</strong>Insert Age backend here</p>
                         <p><strong>Gender:</strong>Insert Gender backend here</p>
                         <pre>{JSON.stringify(auth, null, 2)}</pre>

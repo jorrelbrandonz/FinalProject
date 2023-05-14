@@ -18,7 +18,7 @@ if (!$con) {
  
 switch ($method) {
     case 'GET':
-      $sql = "select * from flights"; 
+      $sql = "SELECT * FROM flights"; 
       break;
 }
  
