@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { FaEnvelope } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaPlane } from "react-icons/fa";
@@ -6,58 +6,54 @@ import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import { redirect } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import Profile from './Profile';
+import AuthContext from "../context/AuthProvider";
+
+
 
 
 export const Login2 = (props) => {
     //const [myBoolean, setBoolean] = useState(false);
    
-
+    //let it post (check)
+    //if post success meaning successful login store axios.get then store it as a cookie
+    const {setAuth} = useContext(AuthContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    
-    const user = {
-        userEmail: {email},
-        userPass: {pass}
-    };
+    const [users, setUser] = useState('');
+   // const dispatch = useDispatch();
+    //const token = "temptoken";
 
     let fData = new FormData();
     fData.append('email', email);
     fData.append('pass', pass);
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(fData);
-<<<<<<< HEAD
-        axios.post('http://localhost/FinalProjectBackEnd/login.php', fData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-=======
+    
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
-        .then((Response)=>{
-            if(Response){
-                navigate('/');
-                alert("Successful Login!");
-                 
-    <Profile user = {user} />
-            }
-            else{
-                alert("Incorrect Email or Password");
-            }
->>>>>>> 7ab2603c4e6cc24773b253ba44fb15e6c07dc768
-        })
         .then((response) => {
-          if (response) {
+          /*if (response) {
+            storeCookie();
             navigate('/');
             alert("Successful Login!");
-          }
+          }*/
+          //dispatch(setCredentials({email, token}));
+          setAuth({email, pass});
+          setEmail('');
+          setPass('');
+          navigate('/');
+          
         })
         .catch(error => {
           alert("Incorrect Username or Password");
         });
       }
+
+      //function storeCookie(){
+        //axios.get('http://localhost/FinalProjectBackEnd/login.php')
+      //}
   
 
     return(
@@ -75,4 +71,9 @@ export const Login2 = (props) => {
         </form>
     </div>
     )
+
+
+    
 }
+
+

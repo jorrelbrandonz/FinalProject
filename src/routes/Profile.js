@@ -1,61 +1,40 @@
-import Navbar from "../components/Navbar";
-import axios from "axios";
-<<<<<<< HEAD
+import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-=======
-import React from 'react';
->>>>>>> 7ab2603c4e6cc24773b253ba44fb15e6c07dc768
-
-function Profile({ user }) {
-
-    const navigate = useNavigate();
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-<<<<<<< HEAD
-        fetch('http://localhost/FinalProjectBackEnd/logout.php')
-          .then((response) => {
-            if (response.ok) {
-              navigate('/');
-              alert("Successful Log out!");
-            } else {
-              throw new Error("Error calling logout.php");
-            }
-          })
-          .catch(error => alert(error.message));
-      }
-=======
-        const logout = 1;
-        axios.post('http://localhost/FinalProjectBackEnd/login.php', logout)
-            .then((Response) => {
-                if (Response) {
-                    alert("You have been logged out!");
-                }
-            }).catch(error => alert(error.Response.data));
-    }
+import AuthContext from '../context/AuthProvider';
 
 
->>>>>>> 7ab2603c4e6cc24773b253ba44fb15e6c07dc768
-    return (
-        <>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div>
-                <h1>User Profile Page</h1>
-                <ul>
-                    <h2>{user.userEmail}</h2>
-                    <h3>{user.userPass}</h3>
-                </ul>
-                <button type="submit" onClick={handleSubmit} > Log out </button>
-            </div>
-        </>
-    )
+
+function Profile() { 
+  const {auth} = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/');
+  }
+
+  return (
+    <>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div>
+      <h2>User Profile</h2>
+      <h3>Registered Users:</h3>
+      <pre>{JSON.stringify(auth, null, 2)}</pre>
+        <button type="submit" onClick={handleSubmit}>
+          Log out
+        </button>
+      </div>
+    </>
+  );
 }
+
 
 export default Profile;
