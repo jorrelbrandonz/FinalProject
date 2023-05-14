@@ -13,10 +13,11 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['pass'];
 $age = $_POST['age'];
+$gender = $_POST['gender'];
 
 
-if($name && $email && $password && $age){
-$sql = "INSERT INTO users (name,email,password,age) VALUES ('$name','$email', '$password','$age')";
+if($name && $email && $password && $age && $gender){
+$sql = "INSERT INTO users (name,email,password,age,gender) VALUES ('$name','$email', '$password','$age','$gender')";
 };
 
 $result = mysqli_query($con,$sql);
