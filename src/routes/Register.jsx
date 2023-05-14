@@ -52,8 +52,7 @@ export const Register = (props) => {
 
        
 
-   function handleSubmit(event) {
-       event.preventDefault();
+   function handleSubmit() {
         console.log(fData);
         axios.post('http://localhost/FinalProjectBackEnd/Registration.php', fData)
         .then((Response)=>{
