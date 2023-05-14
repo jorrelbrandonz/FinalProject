@@ -31,8 +31,8 @@ else{
 }
 
 if(mysqli_num_rows($result)){
-   $row = mysqli_fetch_assoc($result);
-   if ($row['email'] === $email && $row['password'] === $password){
+    $row = mysqli_fetch_assoc($result);
+    if ($row['email'] === $email && $row['password'] === $password){
     $response = http_response_code(200);
     header($response);
 }
