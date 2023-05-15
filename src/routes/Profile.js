@@ -21,7 +21,6 @@ function Profile() {
         return (noUser())
     }*/
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         localStorage.setItem("emailData", "");
@@ -30,14 +29,14 @@ function Profile() {
         navigate("/");
     }
     
-    
-
     const [flights, setFlights] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost/FinalProjectBackEnd/profile.php/')
             .then(response => {
+                console.log(response.data);
                 setFlights(response.data);
+                //setFlights(Array.from(response.data));
             })
             .catch(error => {
                 console.log(error);

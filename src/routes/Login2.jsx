@@ -30,7 +30,7 @@ export const Login2 = (props) => {
     fData.append('email', email);
     fData.append('pass', pass);
 
-
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -38,7 +38,7 @@ export const Login2 = (props) => {
         .then((response) => {
           localStorage.setItem("emailData", email);
           localStorage.setItem("passwordData", pass);
-          document.cookie = "email=" + email + "; path=/";
+          document.cookie = "email2=" + email + "; path=/";
           alert("Successful Login!");
           navigate('/');
         })

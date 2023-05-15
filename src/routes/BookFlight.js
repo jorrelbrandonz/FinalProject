@@ -19,20 +19,21 @@ function BookFlight() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const [flightNumber, setFlightNumber] = useState('');
+    const [flightNumber, setFlightNumber] = useState(selectedFlight?.FlightNumber);
 
     const form = useRef();
     const sendEmail = (e) => {
         e.preventDefault();
+        handleBook();
         alert("Successful booking!");
         closePopUp();
-        // emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
-        //     .then((result) => {
-        //         console.log(result.text);
-        //     }, (error) => {
-        //         console.log(error.text);
-        //     });
-        // e.target.reset();
+        emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+        e.target.reset();
     };
 
     function openPopUp(flight) {
@@ -58,12 +59,10 @@ function BookFlight() {
 
     let fData = new FormData();
     fData.append('email', email);
-    fData.append('flightNumber', flightNumber);
+    fData.append('flightNumber', selectedFlight?.FlightNumber);
 
     function handleBook() {
         console.log(fData);
-        console.log(email);
-        console.log(flightNumber);
         axios.post('http://localhost/FinalProjectBackEnd/booking.php', fData)
         .then((Response)=>{
             if(Response){
@@ -326,17 +325,14 @@ function BookFlight() {
                 <form className="popupOV" onSubmit={sendEmail} ref={form}>
                     <h2>Please Complete Information</h2>
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Passenger Name" name="name" required />
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Passenger Email" name="email" required />
+                    <input type="email" value={localStorage.getItem("emailData")} onChange={(e) => setEmail(e.target.value)} placeholder="Passenger Email" name="email" required />
                     <p>Departure Time<input type="text" value={selectedFlight?.Departure} readOnly placeholder="Departure Time" name="departTime" /></p>
                     <p>Flight Number<input type="text" value={selectedFlight?.FlightNumber} readOnly placeholder="Flight Number" name="flightNumber" /></p>
                     <p>Departure Airport<input type="text" value={selectedFlight?.DepartureAirport} readOnly placeholder="Departure Airport" name="departAir" /></p>
                     <p>Price<input type="text" value={selectedFlight?.TicketPrice} readOnly placeholder="Price" name="price" /></p>
                     <p>Airline<input type="text" value={selectedFlight?.AirplaneType} readOnly placeholder="Airplane" name="airline" /></p>
                     <p>Private Code (View in E-mail)<input type="password" value={randomNum} readOnly placeholder="Password" name="privCode" /></p>
-                    <button type="submit" value="Send" onClick={() => {
-                                                                        setFlightNumber(selectedFlight?.FlightNumber);
-                                                                        handleBook();
-                                                                        }}>Confirm</button>
+                    <button type="submit" value="Send">Confirm</button>
                     <br />
                     <p>*Flight details will be sent to the email entered in the form</p>
                 </form>

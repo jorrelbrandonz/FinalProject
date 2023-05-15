@@ -6,8 +6,8 @@ header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers,
 
 include 'connect.php';
 
-//$email = $_COOKIE['email']; //NOT WROKING FOR SOME REASON
-$email = "oguedave@gmail.com"; //WORKS FOR SOME REASON
+$email = $_COOKIE['email2']; //NOT WORKING FOR SOME REASON
+//$email = "oguedave@gmail.com"; //WORKS FOR SOME REASON
 $data = array();
 
 $sql = "SELECT flightNumber FROM booked WHERE email = '$email'";
@@ -20,7 +20,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 $sqlFlights = 'SELECT * FROM flights WHERE FlightNumber IN (' . implode(',', $data) . ')';
 
-$result = mysqli_query($con, $sqlFlights);
+$resultFlights = mysqli_query($con, $sqlFlights);
 
 // die if SQL statement failed
 if (!$result) {
@@ -29,10 +29,18 @@ if (!$result) {
   }
        
 echo '[';
-for ($i=0 ; $i<mysqli_num_rows($result) ; $i++) {
-    echo ($i>0?',':'').json_encode(mysqli_fetch_object($result));
+for ($i=0 ; $i<mysqli_num_rows($resultFlights) ; $i++) {
+    echo ($i>0?',':'').json_encode(mysqli_fetch_object($resultFlights));
 }
 echo ']';
+
+// while ($row = mysqli_fetch_assoc($resultFlights)) {
+//     array_push($flights, $row);
+// }
+// echo json_encode($flights);
+
+
+
 
 // if($_SESSION['email']!= NULL){
 //     $response = array(
@@ -42,6 +50,5 @@ echo ']';
 //     echo json_encode($response);
 //     http_response_code(200);
 // }
-
 $con->close();
 ?>
