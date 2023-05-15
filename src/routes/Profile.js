@@ -8,6 +8,11 @@ import profbg from '../assets/profbg.jpg';
 
 function Profile() {
 
+    let email = localStorage.getItem('emailData');
+
+    let fData = new FormData();
+    fData.append('email', email);
+
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
     /*const navigate = useNavigate();
@@ -21,28 +26,6 @@ function Profile() {
         return (noUser())
     }*/
 
-    const getData = () => {
-        const data = JSON.parse(localStorage.getItem("data"));
-    }
-
-    const getEmail = () =>{
-        const  = getData();
-        return data.email;
-    }
-
-    const getPassword = () =>{
-        const data = getData();
-        return data.password;
-    }
-    const getGender = () =>{
-        const data = getData();
-        return data.gender;
-    }
-    const getAge = () =>{
-        const data = getData();
-        return data.age;
-    }
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,13 +34,16 @@ function Profile() {
         document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         navigate("/");
     }
+    
+    
 
     const [flights, setFlights] = useState([]);
 
     useEffect(() => {
-
-        axios.get('http://localhost/FinalProjectBackEnd/profile.php/')
+        axios.post('http://localhost/FinalProjectBackEnd/profile.php/', fData)
             .then(response => {
+                console.log(fData);
+                console.log(response);
                 setFlights(response.data);
             })
             .catch(error => {
