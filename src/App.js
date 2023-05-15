@@ -13,30 +13,20 @@ import React, { useState } from 'react';
 function App() {
 
   const loggedIn = localStorage.getItem("emailData");
-
-  if (loggedIn == null) {
-    return (
-      <div className='App'><Navbar2 /><Routes>
+  return (
+    <div className='App'>
+      {loggedIn == null && <Navbar2 />}
+      {loggedIn != null && <Navbar />}
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/bookflight" element={<BookFlight />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<About />} />
       </Routes></div>
-    );
-  }
-  else {
-    return (
-      <div className='App'><Navbar /><Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/bookflight" element={<BookFlight />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/about" element={<About />} />
-      </Routes></div>
-    );
-  }
-
+  );
 }
+
+
 
 export default App;
