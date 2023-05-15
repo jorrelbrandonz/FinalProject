@@ -37,7 +37,6 @@ export const Login2 = (props) => {
         console.log(email);
         console.log(pass);
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
-        axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         .then((response) => {
           localStorage.setItem("emailData", email);
           localStorage.setItem("passwordData", pass);

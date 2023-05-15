@@ -8,6 +8,11 @@ import profbg from '../assets/profbg.jpg';
 
 function Profile() {
 
+    let email = localStorage.getItem('emailData');
+
+    let fData = new FormData();
+    fData.append('email', email);
+
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
     /*const navigate = useNavigate();
@@ -28,12 +33,16 @@ function Profile() {
         document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         navigate("/");
     }
+    
+    
 
     const [flights, setFlights] = useState([]);
 
     useEffect(() => {
         axios.get('http://localhost/FinalProjectBackEnd/profile.php/')
             .then(response => {
+                console.log(fData);
+                console.log(response);
                 setFlights(response.data);
             })
             .catch(error => {
