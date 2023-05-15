@@ -40,9 +40,9 @@ export const Login2 = (props) => {
         .then((response) => {
           localStorage.setItem("emailData", email);
           localStorage.setItem("passwordData", pass);
+          document.cookie = "email=" + email + "; path=/";
           alert("Successful Login!");
           navigate('/');
-          
         })
         .catch(error => {
           alert("Incorrect Username or Password");
