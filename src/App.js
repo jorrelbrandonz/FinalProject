@@ -8,11 +8,13 @@ import Profile from "./routes/Profile";
 import About from "./routes/AboutUs";
 import Navbar from "../src/components/Navbar";
 import Navbar2 from "../src/components/Navbar2";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function App() {
 
   const loggedIn = localStorage.getItem("emailData");
+
+
   return (
     <div className='App'>
       {loggedIn == null && <Navbar2 />}

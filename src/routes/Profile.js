@@ -21,12 +21,18 @@ export const Profile = (props) => {
         return (noUser())
     }*/
 
+    function refreshPage() {
+        window.location.reload(false);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         localStorage.setItem("emailData", "");
         localStorage.setItem("passwordData", "");
         document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         navigate("/");
+        refreshPage();
+
     }
 
     const [flights, setFlights] = useState([]);

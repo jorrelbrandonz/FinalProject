@@ -12,6 +12,7 @@ function Home() {
                 heroImg={heroimghome}
                 title="Your Journey Your Story" text="Flight Bookings Made Easier, Choose your Favorite Destination"
                 buttonText="Book a Flight Now"
+                cName2="hero-text"
                 url="/bookflight"
                 btnClass="show" />
             <Destination />

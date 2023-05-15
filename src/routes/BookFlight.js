@@ -330,8 +330,10 @@ function BookFlight() {
                     <p>Flight Number<input type="text" value={selectedFlight?.FlightNumber} readOnly placeholder="Flight Number" name="flightNumber" /></p>
                     <p>Departure Airport<input type="text" value={selectedFlight?.DepartureAirport} readOnly placeholder="Departure Airport" name="departAir" /></p>
                     <p>Price<input type="text" value={selectedFlight?.TicketPrice} readOnly placeholder="Price" name="price" /></p>
-                    <p>Airline<input type="text" value={selectedFlight?.AirplaneType} readOnly placeholder="Airplane" name="airline" /></p>
-                    <p>Private Code (View in E-mail)<input type="password" value={randomNum} readOnly placeholder="Password" name="privCode" /></p>
+                    <p>Airline<input type="text" value={selectedFlight?.AirplaneType} readOnly placeholder="Airplane" name="airline" />
+
+                        <input value={randomNum} readOnly placeholder="Password" name="privCode" style={{ display: 'none' }} /></p>
+
                     <button type="submit" value="Send">Confirm</button>
                     <br />
                     <p>*Flight details will be sent to the email entered in the form</p>

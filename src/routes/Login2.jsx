@@ -23,6 +23,10 @@ export const Login2 = (props) => {
    // const dispatch = useDispatch();
     //const token = "temptoken";
 
+    function refreshPage() {
+      window.location.reload(false);
+    }
+
     let fData = new FormData();
     fData.append('email', email);
     fData.append('pass', pass);
@@ -37,6 +41,7 @@ export const Login2 = (props) => {
           localStorage.setItem("passwordData", pass);
           alert("Successful Login!");
           navigate('/');
+          refreshPage();
 
         })
         .catch(error => {

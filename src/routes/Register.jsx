@@ -34,8 +34,6 @@ export const Register = (props) => {
         event.preventDefault();
         setShowPopup(true);
         sendEmail(event);
-        alert(randomNum);
-        alert(inputCode);
       };
 
       const handleAuthentication = (event) => {
@@ -93,7 +91,7 @@ export const Register = (props) => {
         <label htmlFor="gender"><BsGenderAmbiguous/>  Gender</label>
         <input value={gender} onChange={(e) => setGender(e.target.value)} type='text' id="gender" name="gender" required placeholder="e.g. Male"/>
 
-        <p>Private Code (View in E-mail)<input type="password" value={randomNum} onChange={(e) => setRandom(e.target.value)} readOnly placeholder="Password" name="code" /></p>
+        <input value={randomNum} readOnly placeholder="Password" name="code" style={{display: 'none'}} />
 
         <button className="proc" type="submit" value="Send">Sign-up</button>
         <button className="link-btn" type = "button" onClick={() => props.onFormSwitch('Login2')}>Already have an account? Log-in here.</button>
