@@ -12,25 +12,27 @@ import React, { useState } from 'react';
 
 function App() {
 
-  const [currentNav, setCurrentNav] = useState('Navbar2');
-  const toggleNav = (navName) => {
-    setCurrentNav(navName);
-  }
-  return (
-    <div className="App">
-      {
-        currentNav === 'Navbar2' ? <Navbar2 onFormSwitchNav={toggleNav} /> : <Navbar onFormSwitchNav={toggleNav} />
-      }
+  const [loggedIn, setLog] = useState(localStorage.getItem("emailData"));
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/bookflight" element={<BookFlight />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </div>
-  );
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/bookflight" element={<BookFlight />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/profile" element={<Profile />} />
+    <Route path="/about" element={<About />} />
+  </Routes>
+
+  if (loggedIn == null) {
+    return (
+      <div className='App'><Navbar2 /></div>
+    );
+  }
+  else {
+    return (
+      <div className='App'><Navbar /></div>
+    );
+  }
+
 }
 
 export default App;

@@ -37,7 +37,7 @@ export const Login2 = (props) => {
           localStorage.setItem("passwordData", pass);
           alert("Successful Login!");
           navigate('/');
-          props.onFormSwitchNav('Navbar')
+
         })
         .catch(error => {
           alert("Incorrect Username or Password");

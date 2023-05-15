@@ -27,7 +27,6 @@ export const Profile = (props) => {
         localStorage.setItem("passwordData", "");
         document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         navigate("/");
-        props.onFormSwitch('Navbar2')
     }
 
     const [flights, setFlights] = useState([]);
