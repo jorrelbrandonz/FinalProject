@@ -21,29 +21,6 @@ function Profile() {
         return (noUser())
     }*/
 
-    const getData = () => {
-        const data = JSON.parse(localStorage.getItem("data"));
-    }
-
-    const getEmail = () =>{
-        const  = getData();
-        return data.email;
-    }
-
-    const getPassword = () =>{
-        const data = getData();
-        return data.password;
-    }
-    const getGender = () =>{
-        const data = getData();
-        return data.gender;
-    }
-    const getAge = () =>{
-        const data = getData();
-        return data.age;
-    }
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
         localStorage.setItem("emailData", "");
@@ -55,7 +32,6 @@ function Profile() {
     const [flights, setFlights] = useState([]);
 
     useEffect(() => {
-
         axios.get('http://localhost/FinalProjectBackEnd/profile.php/')
             .then(response => {
                 setFlights(response.data);
@@ -83,32 +59,28 @@ function Profile() {
                         <br></br>
                         <h1 className="heading"> Booked flights! UwU </h1>
                         <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Flight Number</th>
-                                    <th>Departure Airport</th>
-                                    <th>Departure Time</th>
-                                    <th>Arrival Airport</th>
-                                    <th>Arrival Time</th>
-                                    <th>Airline</th>
-                                    <th>Price</th>
-                                    <th>Seat Availability</th>
+                        <thead>
+                            <tr>
+                                <th>Flight Number</th>
+                                <th>Departure Airport</th>
+                                <th>Departure Time</th>
+                                <th>Arrival Airport</th>
+                                <th>Arrival Time</th>
+                                <th>Airline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {flights.map((flight) => (
+                                <tr key={flight.FlightNumber}>
+                                    <td data-label="FlightNumber">{flight.FlightNumber}</td>
+                                    <td data-label="Departure Airport">{flight.DepartureAirport}</td>
+                                    <td data-label="Departure Time">{flight.Departure}</td>
+                                    <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
+                                    <td data-label="Arrival Time">{flight.Arrival}</td>
+                                    <td data-label="Airline">{flight.AirplaneType}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {flights.map((flight) => (
-                                    <tr key={flight.FlightNumber}>
-                                        <td data-label="FlightNumber">{flight.FlightNumber}</td>
-                                        <td data-label="Departure Airport">{flight.DepartureAirport}</td>
-                                        <td data-label="Departure Time">{flight.Departure}</td>
-                                        <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
-                                        <td data-label="Arrival Time">{flight.Arrival}</td>
-                                        <td data-label="Airline">{flight.AirplaneType}</td>
-                                        <td data-label="Price">{'$' + flight.TicketPrice}</td>
-                                        <td data-label="Seat Availability">{flight.Passengers}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
+                            ))}
+                        </tbody>
                         </table>
                         <pre>{JSON.stringify(auth, null, 2)}</pre>
                     </div>
