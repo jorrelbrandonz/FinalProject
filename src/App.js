@@ -12,24 +12,28 @@ import React, { useState } from 'react';
 
 function App() {
 
-  const [loggedIn, setLog] = useState(localStorage.getItem("emailData"));
-
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/bookflight" element={<BookFlight />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/profile" element={<Profile />} />
-    <Route path="/about" element={<About />} />
-  </Routes>
+  const loggedIn = localStorage.getItem("emailData");
 
   if (loggedIn == null) {
     return (
-      <div className='App'><Navbar2 /></div>
+      <div className='App'><Navbar2 /><Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/bookflight" element={<BookFlight />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/about" element={<About />} />
+      </Routes></div>
     );
   }
   else {
     return (
-      <div className='App'><Navbar /></div>
+      <div className='App'><Navbar /><Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/bookflight" element={<BookFlight />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/about" element={<About />} />
+      </Routes></div>
     );
   }
 
