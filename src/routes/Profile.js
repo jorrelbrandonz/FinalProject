@@ -21,6 +21,29 @@ function Profile() {
         return (noUser())
     }*/
 
+    const getData = () => {
+        const data = JSON.parse(localStorage.getItem("data"));
+    }
+
+    const getEmail = () =>{
+        const  = getData();
+        return data.email;
+    }
+
+    const getPassword = () =>{
+        const data = getData();
+        return data.password;
+    }
+    const getGender = () =>{
+        const data = getData();
+        return data.gender;
+    }
+    const getAge = () =>{
+        const data = getData();
+        return data.age;
+    }
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         localStorage.setItem("emailData", "");
@@ -40,11 +63,10 @@ function Profile() {
                 </div>
                 <div className="ProfileBody">
                     <div className="ProfileInfo">
-                        <p><strong>Email:</strong>{localStorage.getItem("emailData")}</p>
-                        <p><strong>Password:</strong>{localStorage.getItem("passwordData")}</p>
-                        <p><strong>Age:</strong>Insert Age backend here</p>
-                        <p><strong>Gender:</strong>Insert Gender backend here</p>
-                        <pre>{JSON.stringify(auth, null, 2)}</pre>
+                        <p><strong>Email:</strong>{getEmail()}</p>
+                        <p><strong>Password:</strong>{getPassword()}</p>
+                        <p><strong>Age:</strong>{getAge()}</p>
+                        <p><strong>Gender:</strong>{getGender()}</p>
                     </div>
                 </div>
                 <br />

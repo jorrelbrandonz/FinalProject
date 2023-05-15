@@ -18,12 +18,10 @@ export const Login2 = (props) => {
    
     //let it post (check)
     //if post success meaning successful login store axios.get then store it as a cookie
-    const getEmail= localStorage.getItem("emailData");
-    const getPassword = localStorage.getItem("passwordData");
-    const {setAuth} = useContext(AuthContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [data, setData] = useState([]);
     //const [users, setUser] = useState('');
    // const dispatch = useDispatch();
     //const token = "temptoken";
@@ -33,19 +31,22 @@ export const Login2 = (props) => {
     fData.append('pass', pass);
 
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+        console.log(email);
+        console.log(pass);
+        axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         .then((response) => {
-          localStorage.setItem("emailData", email);
-          localStorage.setItem("passwordData", pass);
+          setData(response.data);
+          localStorage.setItem("data", JSON.stringify(response.data));
           alert("Successful Login!");
           navigate('/');
           
         })
         .catch(error => {
-          alert("Incorrect Username or Password");
+          alert(error);
         });
       }
 

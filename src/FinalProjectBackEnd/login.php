@@ -15,7 +15,6 @@ $data[] = array();
 $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
 $result = mysqli_query($con, $sql);
 
-
 if (mysqli_num_rows($result)) { 
     $row = mysqli_fetch_assoc($result); //this already gets the row therefore, get all the data in the row and header it
     if ($row['email'] === $email && $row['password'] === $password) {
@@ -24,11 +23,15 @@ if (mysqli_num_rows($result)) {
         }
         $success = true;
     }
+    else {
+        http_response_code(401);
+    }
 }
 
 
 if ($success) {
-    header($data);
+    header('Content-Type: application/json');
+    echo json_encode($data);
     http_response_code(200);
 } else {
     http_response_code(404);

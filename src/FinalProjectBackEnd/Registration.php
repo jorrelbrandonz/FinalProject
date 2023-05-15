@@ -16,9 +16,15 @@ $age = $_POST['age'];
 $gender = $_POST['gender'];
 
 
+$checkDupe = "SELECT * FROM users WHERE email = '$email'";
+$resultDupe = mysqli_query($con,$checkDupe);
+if ($!$checkDupe){
 if($name && $email && $password && $age){
 $sql = "INSERT INTO users (name,email,password,age,gender) VALUES ('$name','$email', '$password','$age','$gender')";
 };
+}else{
+    header(http_response_code(409));
+}
 
 $result = mysqli_query($con,$sql);
 
@@ -33,6 +39,10 @@ header($response);
 
 $con->close();
 
+ 
 ?>
+
+
+
 
 
