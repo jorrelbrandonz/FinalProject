@@ -8,20 +8,17 @@ import { redirect } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import AuthContext from "../context/AuthProvider";
 
-
-
-
-
-
 export const Login2 = (props) => {
     //const [myBoolean, setBoolean] = useState(false);
    
     //let it post (check)
     //if post success meaning successful login store axios.get then store it as a cookie
+    const getEmail= localStorage.getItem("emailData");
+    const getPassword = localStorage.getItem("passwordData");
+    const {setAuth} = useContext(AuthContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [data, setData] = useState([]);
     //const [users, setUser] = useState('');
    // const dispatch = useDispatch();
     //const token = "temptoken";
@@ -30,22 +27,27 @@ export const Login2 = (props) => {
     fData.append('email', email);
     fData.append('pass', pass);
 
-    
 
     const handleSubmit = (e) => {
         e.preventDefault();
+    
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         .then((response) => {
           localStorage.setItem("emailData", email);
           localStorage.setItem("passwordData", pass);
-          document.cookie = "email2=" + email + "; path=/";
           alert("Successful Login!");
           navigate('/');
+          props.onFormSwitchNav('Navbar')
         })
         .catch(error => {
-          alert(error);
+          alert("Incorrect Username or Password");
         });
       }
+
+      //function storeCookie(){
+        //axios.get('http://localhost/FinalProjectBackEnd/login.php')
+      //}
+  
 
     return(
         <div className='auth-form container'>

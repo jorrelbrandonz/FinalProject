@@ -6,7 +6,7 @@ import { useMatch, useNavigate } from 'react-router-dom';
 import "./ProfileStyles.css";
 import profbg from '../assets/profbg.jpg';
 
-function Profile() {
+export const Profile = (props) => {
 
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -27,8 +27,9 @@ function Profile() {
         localStorage.setItem("passwordData", "");
         document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         navigate("/");
+        props.onFormSwitch('Navbar2')
     }
-    
+
     const [flights, setFlights] = useState([]);
 
     useEffect(() => {

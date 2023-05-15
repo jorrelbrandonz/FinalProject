@@ -64,13 +64,13 @@ function BookFlight() {
     function handleBook() {
         console.log(fData);
         axios.post('http://localhost/FinalProjectBackEnd/booking.php', fData)
-        .then((Response)=>{
-            if(Response){
-                console.log(Response);
-                alert("booked successful!");
-            }
-        })
-        .catch(error=>alert(error));
+            .then((Response) => {
+                if (Response) {
+                    console.log(Response);
+
+                }
+            })
+            .catch(error => alert(error));
 
     };
 
@@ -106,7 +106,7 @@ function BookFlight() {
         setShowPopup(true);
     }
 
-    
+
 
     useEffect(() => {
         let popupConfirmation = document.querySelector(".popupConfirmation")

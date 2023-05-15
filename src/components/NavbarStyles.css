@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 3em 50px;
-    box-shadow: 0 5px 15px 0 rgba(0,0,0,.25);
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .25);
     width: 100%;
     height: 80px;
     background-color: black;
@@ -47,7 +47,7 @@
     width: 20%;
     height: 20%;
     object-fit: none;
-    
+
 }
 
 .nav-links:hover {

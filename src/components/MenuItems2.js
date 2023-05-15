@@ -4,7 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { FiLogIn } from "react-icons/fi";
 import { FaBusinessTime } from "react-icons/fa";
 
-export const MenuItems = [
+export const MenuItems2 = [
     {
         title: "Home",
         url: "/",
@@ -27,10 +27,10 @@ export const MenuItems = [
         space: "    "
     },
     {
-        title: "Profile",
-        url: "/profile",
+        title: "Log-in",
+        url: "/login",
         cName: "nav-links",
-        icon: <CgProfile />,
+        icon: <FiLogIn />,
         space: "    "
     },
 ];

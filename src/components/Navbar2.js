@@ -1,7 +1,7 @@
 import { Component } from "react";
 import "./NavbarStyles.css";
 import { Link } from "react-router-dom";
-import { MenuItems } from "./MenuItems";
+import { MenuItems2 } from "./MenuItems2";
 
 const style = { padding: "10px" }
 class Navbar extends Component {
@@ -10,7 +10,7 @@ class Navbar extends Component {
             <nav className="NavbarItems">
                 <h1 className="navbar-logo">JLABS AIRLINES</h1>
                 <ul className="nav-menu">
-                    {MenuItems.map((item, index) => {
+                    {MenuItems2.map((item, index) => {
                         return (
                             <li key={index}><Link className={item.cName} to={item.url}>{item.icon}{item.space}{item.title}</Link></li>
                         )
