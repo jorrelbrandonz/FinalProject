@@ -1,5 +1,4 @@
 <?php
-session_start();
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
 header("Access-Control-Allow-Methods: *");
@@ -7,7 +6,8 @@ header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers,
 
 include 'connect.php';
 
-$email = $_POST['email'];
+//$email = $_COOKIE['email']; //NOT WROKING FOR SOME REASON
+$email = "oguedave@gmail.com"; //WORKS FOR SOME REASON
 $data = array();
 
 $sql = "SELECT flightNumber FROM booked WHERE email = '$email'";
@@ -17,7 +17,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $flightNumber = (int)$row['flightNumber'];
     array_push($data, $flightNumber);
 }
-array_push($data, 54780);//TESTING
 
 $sqlFlights = 'SELECT * FROM flights WHERE FlightNumber IN (' . implode(',', $data) . ')';
 

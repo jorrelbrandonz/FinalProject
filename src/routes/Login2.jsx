@@ -34,8 +34,6 @@ export const Login2 = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
-        console.log(pass);
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         .then((response) => {
           localStorage.setItem("emailData", email);
@@ -48,11 +46,6 @@ export const Login2 = (props) => {
           alert(error);
         });
       }
-
-      //function storeCookie(){
-        //axios.get('http://localhost/FinalProjectBackEnd/login.php')
-      //}
-  
 
     return(
         <div className='auth-form container'>

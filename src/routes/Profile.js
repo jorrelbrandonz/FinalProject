@@ -8,11 +8,6 @@ import profbg from '../assets/profbg.jpg';
 
 function Profile() {
 
-    let email = localStorage.getItem('emailData');
-
-    let fData = new FormData();
-    fData.append('email', email);
-
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
     /*const navigate = useNavigate();
@@ -25,6 +20,7 @@ function Profile() {
     if (!user) {
         return (noUser())
     }*/
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,15 +37,12 @@ function Profile() {
     useEffect(() => {
         axios.get('http://localhost/FinalProjectBackEnd/profile.php/')
             .then(response => {
-                console.log(fData);
-                console.log(response);
                 setFlights(response.data);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
-
     return (
         <>
             <div className="UserProfile">
@@ -62,36 +55,36 @@ function Profile() {
                 <div className="ProfileBody">
                     <div className="ProfileInfo">
                         <p><strong>Email:</strong>{localStorage.getItem("emailData")}</p>
-                        <p><strong>Password:</strong>{localStorage.getItem("passwordData")}</p>
-                        <p><strong>Age:</strong>Insert Age backend here</p>
-                        <p><strong>Gender:</strong>Insert Gender backend here</p>
                         <br></br>
-                        <h1 className="heading"> Booked flights! UwU </h1>
+                        <h1 className="heading"> Booked Flights</h1>
                         <table className="table">
-                        <thead>
-                            <tr>
-                                <th>Flight Number</th>
-                                <th>Departure Airport</th>
-                                <th>Departure Time</th>
-                                <th>Arrival Airport</th>
-                                <th>Arrival Time</th>
-                                <th>Airline</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {flights.map((flight) => (
-                                <tr key={flight.FlightNumber}>
-                                    <td data-label="FlightNumber">{flight.FlightNumber}</td>
-                                    <td data-label="Departure Airport">{flight.DepartureAirport}</td>
-                                    <td data-label="Departure Time">{flight.Departure}</td>
-                                    <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
-                                    <td data-label="Arrival Time">{flight.Arrival}</td>
-                                    <td data-label="Airline">{flight.AirplaneType}</td>
+                            <thead>
+                                <tr>
+                                    <th>Flight Number</th>
+                                    <th>Departure Airport</th>
+                                    <th>Departure Time</th>
+                                    <th>Arrival Airport</th>
+                                    <th>Arrival Time</th>
+                                    <th>Airline</th>
+                                    <th>Price</th>
+                                    <th>Seat Availability</th>
                                 </tr>
-                            ))}
-                        </tbody>
+                            </thead>
+                            <tbody>
+                                {flights.map((flight) => (
+                                    <tr key={flight.FlightNumber}>
+                                        <td data-label="FlightNumber">{flight.FlightNumber}</td>
+                                        <td data-label="Departure Airport">{flight.DepartureAirport}</td>
+                                        <td data-label="Departure Time">{flight.Departure}</td>
+                                        <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
+                                        <td data-label="Arrival Time">{flight.Arrival}</td>
+                                        <td data-label="Airline">{flight.AirplaneType}</td>
+                                        <td data-label="Price">{'$' + flight.TicketPrice}</td>
+                                        <td data-label="Seat Availability">{flight.Passengers}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
                         </table>
-                        <pre>{JSON.stringify(auth, null, 2)}</pre>
                     </div>
                 </div>
                 <br />
