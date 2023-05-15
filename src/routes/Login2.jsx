@@ -39,11 +39,11 @@ export const Login2 = (props) => {
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         .then((response) => {
-          setData(response.data);
-          localStorage.setItem("data", JSON.stringify(response.data));
+          localStorage.setItem("emailData", email);
+          localStorage.setItem("passwordData", pass);
+          document.cookie = "email=" + email + "; path=/";
           alert("Successful Login!");
           navigate('/');
-          
         })
         .catch(error => {
           alert(error);

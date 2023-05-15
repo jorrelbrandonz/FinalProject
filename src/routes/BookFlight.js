@@ -19,19 +19,20 @@ function BookFlight() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const form = useRef();
+    const [flightNumber, setFlightNumber] = useState('');
 
+    const form = useRef();
     const sendEmail = (e) => {
         e.preventDefault();
-        alert("Successfull booking!");
+        alert("Successful booking!");
         closePopUp();
-        emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            });
-        e.target.reset();
+        // emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
+        //     .then((result) => {
+        //         console.log(result.text);
+        //     }, (error) => {
+        //         console.log(error.text);
+        //     });
+        // e.target.reset();
     };
 
     function openPopUp(flight) {
@@ -54,6 +55,25 @@ function BookFlight() {
             closePopUp()
         }
     }
+
+    let fData = new FormData();
+    fData.append('email', email);
+    fData.append('flightNumber', flightNumber);
+
+    function handleBook() {
+        console.log(fData);
+        console.log(email);
+        console.log(flightNumber);
+        axios.post('http://localhost/FinalProjectBackEnd/booking.php', fData)
+        .then((Response)=>{
+            if(Response){
+                console.log(Response);
+                alert("booked successful!");
+            }
+        })
+        .catch(error=>alert(error));
+
+    };
 
     const handlePaymentClick = (event) => {
         event.preventDefault();
@@ -86,6 +106,8 @@ function BookFlight() {
         event.preventDefault();
         setShowPopup(true);
     }
+
+    
 
     useEffect(() => {
         let popupConfirmation = document.querySelector(".popupConfirmation")
@@ -133,15 +155,15 @@ function BookFlight() {
     window.addEventListener("keydown", handleKeyDown)
 
     const [flights, setFlights] = useState([]);
-    
+
     useEffect(() => {
         axios.get('http://localhost/FinalProjectBackEnd/Flights.php/')
-        .then(response => {
-            setFlights(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
+            .then(response => {
+                setFlights(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -165,7 +187,7 @@ function BookFlight() {
                             </tr>
                         </thead>
                         <tbody>
-                        {flights.map((flight) => (
+                            {flights.map((flight) => (
                                 <tr key={flight.FlightNumber}>
                                     <td data-label="FlightNumber">{flight.FlightNumber}</td>
                                     <td data-label="Departure Airport">{flight.DepartureAirport}</td>
@@ -173,7 +195,7 @@ function BookFlight() {
                                     <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
                                     <td data-label="Arrival Time">{flight.Arrival}</td>
                                     <td data-label="Airline">{flight.AirplaneType}</td>
-                                    <td data-label="Price">{'$'+ flight.TicketPrice}</td>
+                                    <td data-label="Price">{'$' + flight.TicketPrice}</td>
                                     <td data-label="Seat Availability">{flight.Passengers}</td>
                                     <td data-label="">
                                         <button className="btn" onClick={() => openPopUp(flight)}>Book Now</button>
@@ -311,7 +333,10 @@ function BookFlight() {
                     <p>Price<input type="text" value={selectedFlight?.TicketPrice} readOnly placeholder="Price" name="price" /></p>
                     <p>Airline<input type="text" value={selectedFlight?.AirplaneType} readOnly placeholder="Airplane" name="airline" /></p>
                     <p>Private Code (View in E-mail)<input type="password" value={randomNum} readOnly placeholder="Password" name="privCode" /></p>
-                    <button type="submit" value="Send">Confirm</button>
+                    <button type="submit" value="Send" onClick={() => {
+                                                                        setFlightNumber(selectedFlight?.FlightNumber);
+                                                                        handleBook();
+                                                                        }}>Confirm</button>
                     <br />
                     <p>*Flight details will be sent to the email entered in the form</p>
                 </form>
