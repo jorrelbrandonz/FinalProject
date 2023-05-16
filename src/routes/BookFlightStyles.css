@@ -21,10 +21,6 @@
     background-color: transparent;
 }
 
-body {
-    overflow: hidden;
-}
-
 .book2style {
     text-align: center;
     display: flex;
