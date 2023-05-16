@@ -9,6 +9,16 @@
 .table-container {
     padding: 0 10%;
     margin: 200px auto 50px;
+    max-height: 550px;
+    overflow: auto;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
 
 .book2style {
@@ -26,14 +36,14 @@
 
 .airbg {
     width: 100%;
-    height: 99.60vh;
+    height: calc(99.60vh - 1px);
     position: relative;
-
 }
 
 .heading {
     font-size: 40px;
     text-align: center;
+    margin-top: 40px;
     margin-bottom: 40px;
     color: orange;
     background-color: black;
@@ -49,6 +59,9 @@
 
 .table thead {
     background-color: orange;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 .table tr th {
