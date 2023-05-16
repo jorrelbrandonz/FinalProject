@@ -6,8 +6,8 @@ header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers,
 
 include 'connect.php';
 
-$email = $_COOKIE['email2']; //NOT WORKING FOR SOME REASON
-//$email = "oguedave@gmail.com"; //WORKS FOR SOME REASON
+
+$email = "oguedave@gmail.com";
 $data = array();
 
 $sql = "SELECT flightNumber FROM booked WHERE email = '$email'";
@@ -34,21 +34,5 @@ for ($i=0 ; $i<mysqli_num_rows($resultFlights) ; $i++) {
 }
 echo ']';
 
-// while ($row = mysqli_fetch_assoc($resultFlights)) {
-//     array_push($flights, $row);
-// }
-// echo json_encode($flights);
-
-
-
-
-// if($_SESSION['email']!= NULL){
-//     $response = array(
-//         "email" => $_SESSION['email'],
-//         "pass" => $_SESSION['password']
-//     );
-//     echo json_encode($response);
-//     http_response_code(200);
-// }
 $con->close();
 ?>

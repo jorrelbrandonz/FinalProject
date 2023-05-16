@@ -19,9 +19,6 @@ export const Login2 = (props) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    //const [users, setUser] = useState('');
-   // const dispatch = useDispatch();
-    //const token = "temptoken";
 
     function refreshPage() {
       window.location.reload(false);
@@ -39,20 +36,16 @@ export const Login2 = (props) => {
         .then((response) => {
           localStorage.setItem("emailData", email);
           localStorage.setItem("passwordData", pass);
+          document.cookie = "email2=" + email + "; path=/";
           alert("Successful Login!");
           navigate('/');
           refreshPage();
-
         })
         .catch(error => {
           alert("Incorrect Username or Password");
         });
       }
 
-      //function storeCookie(){
-        //axios.get('http://localhost/FinalProjectBackEnd/login.php')
-      //}
-  
 
     return(
         <div className='auth-form container'>

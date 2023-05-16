@@ -10,16 +10,6 @@ export const Profile = (props) => {
 
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
-    /*const navigate = useNavigate();
-    function noUser() {
-
-        navigate('/login');
-        alert("Please log in first!!");
-    }
-
-    if (!user) {
-        return (noUser())
-    }*/
 
     function refreshPage() {
         window.location.reload(false);
@@ -29,10 +19,9 @@ export const Profile = (props) => {
         e.preventDefault();
         localStorage.setItem("emailData", "");
         localStorage.setItem("passwordData", "");
-        document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "email2=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         navigate("/");
         refreshPage();
-
     }
 
     const [flights, setFlights] = useState([]);
@@ -42,7 +31,6 @@ export const Profile = (props) => {
             .then(response => {
                 console.log(response.data);
                 setFlights(response.data);
-                //setFlights(Array.from(response.data));
             })
             .catch(error => {
                 console.log(error);
@@ -55,41 +43,13 @@ export const Profile = (props) => {
                     <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile" />
                 </div>
                 <div className="ProfileHeader">
-                    <h1>Full Name</h1>
+                    <h1>Name</h1>
                 </div>
                 <div className="ProfileBody">
                     <div className="ProfileInfo">
                         <p><strong>Email:</strong>{localStorage.getItem("emailData")}</p>
                         <br></br>
-                        <h1 className="heading"> Booked Flights</h1>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Flight Number</th>
-                                    <th>Departure Airport</th>
-                                    <th>Departure Time</th>
-                                    <th>Arrival Airport</th>
-                                    <th>Arrival Time</th>
-                                    <th>Airline</th>
-                                    <th>Price</th>
-                                    <th>Seat Availability</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {flights.map((flight) => (
-                                    <tr key={flight.FlightNumber}>
-                                        <td data-label="FlightNumber">{flight.FlightNumber}</td>
-                                        <td data-label="Departure Airport">{flight.DepartureAirport}</td>
-                                        <td data-label="Departure Time">{flight.Departure}</td>
-                                        <td data-label="Arrival Airport">{flight.ArrivalAirport}</td>
-                                        <td data-label="Arrival Time">{flight.Arrival}</td>
-                                        <td data-label="Airline">{flight.AirplaneType}</td>
-                                        <td data-label="Price">{'$' + flight.TicketPrice}</td>
-                                        <td data-label="Seat Availability">{flight.Passengers}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        
                     </div>
                 </div>
                 <br />
