@@ -21,6 +21,10 @@
     background-color: transparent;
 }
 
+body {
+    overflow: hidden;
+}
+
 .book2style {
     text-align: center;
     display: flex;
@@ -56,6 +60,7 @@
     width: 100%;
     border-collapse: collapse;
 }
+
 
 .table thead {
     background-color: orange;
