@@ -28,15 +28,14 @@ export const Login2 = (props) => {
     fData.append('email', email);
     fData.append('pass', pass);
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+        console.log(email);
+        console.log(pass);
         axios.post('http://localhost/FinalProjectBackEnd/login.php', fData)
         .then((response) => {
           localStorage.setItem("emailData", email);
           localStorage.setItem("passwordData", pass);
-          document.cookie = "email2=" + email + "; path=/";
           alert("Successful Login!");
           navigate('/');
           refreshPage();
@@ -45,7 +44,6 @@ export const Login2 = (props) => {
           alert("Incorrect Username or Password");
         });
       }
-
 
     return(
         <div className='auth-form container'>

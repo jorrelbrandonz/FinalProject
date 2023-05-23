@@ -27,13 +27,13 @@ function BookFlight() {
         handleBook();
         alert("Successful booking!");
         closePopUp();
-        emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            });
-        e.target.reset();
+        // emailjs.sendForm('service_wwc6qf6', 'template_rcxtjxc', form.current, 'cyXE5j-r-pA6DZ60s')
+        //     .then((result) => {
+        //         console.log(result.text);
+        //     }, (error) => {
+        //         console.log(error.text);
+        //     });
+        // e.target.reset();
     };
 
     function openPopUp(flight) {
@@ -58,14 +58,18 @@ function BookFlight() {
     }
 
     let fData = new FormData();
-    fData.append('email', email);
+    fData.append('email', localStorage.getItem("emailData"));
     fData.append('flightNumber', selectedFlight?.FlightNumber);
 
     function handleBook() {
         console.log(fData);
+        setEmail(localStorage.getItem("emailData"));
+        setFlightNumber(selectedFlight?.FlightNumber);
         axios.post('http://localhost/FinalProjectBackEnd/booking.php', fData)
             .then((Response) => {
                 if (Response) {
+                    console.log(localStorage.getItem("emailData"));
+                    console.log(selectedFlight?.FlightNumber);
                     console.log(Response);
 
                 }
@@ -161,6 +165,21 @@ function BookFlight() {
                 setFlights(response.data);
             })
             .catch(error => {
+                console.log(error);
+            });
+        setEmail(localStorage.getItem("emailData"));
+        fetch("http://localhost/FinalProjectBackEnd/getname.php", {
+            "method": "POST",
+            "header": {
+            "Content-Type": "application/json; charset=utf-8"
+            },
+            "body": JSON.stringify(email)
+            }).then (function(response){
+                return response.json();
+            }).then (function(data){
+                console.log(data);
+                setName(data['name']);
+            }).catch(error => {
                 console.log(error);
             });
     }, []);

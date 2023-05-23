@@ -17,8 +17,8 @@ function App() {
 
   return (
     <div className='App'>
-      {loggedIn == "" && <Navbar2 />}
-      {loggedIn != "" && <Navbar />}
+      {loggedIn !== "" && <Navbar />}
+      {loggedIn === "" && <Navbar2 />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/bookflight" element={<BookFlight />} />

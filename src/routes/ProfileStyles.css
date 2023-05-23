@@ -5,12 +5,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .ProfileHeader {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .ProfileHeader h1 {
@@ -31,9 +30,23 @@
 }
 
 .ProfilePicture {
+    margin-top: 100px;
     margin-bottom: 20px;
 }
 
+.heading {
+    margin: 1%;
+}
+.table-container {
+    padding: 0 10%;
+    margin: 0%;
+    max-height: 550px;
+    overflow: auto;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 6px;
+}
 
 .ProfilePicture img {
     width: 150px;

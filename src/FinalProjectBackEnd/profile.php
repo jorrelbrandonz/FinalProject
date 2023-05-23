@@ -1,4 +1,6 @@
 <?php
+error_reporting (E_ALL ^ E_NOTICE);
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
 header("Access-Control-Allow-Methods: *");
@@ -6,11 +8,15 @@ header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers,
 
 include 'connect.php';
 
+if(isset($_POST)){
+    $data = file_get_contents("php://input");
+    $email = json_decode($data, true);
+    $email2 = $email["email"];
+}
 
-$email = "oguedave@gmail.com";
 $data = array();
 
-$sql = "SELECT flightNumber FROM booked WHERE email = '$email'";
+$sql = "SELECT flightNumber FROM booked WHERE email ='$email2'";
 $result = mysqli_query($con, $sql);
 
 while ($row = mysqli_fetch_assoc($result)) {
